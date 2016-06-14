@@ -1,0 +1,322 @@
+---
+title: "Understanding Sequencing Reads"
+author: "Mark Dunning"
+date: '`r format(Sys.time(), "Last modified: %d %b %Y")`'
+output: html_document
+---
+
+# Overview
+
+
+
+
+## Illumina sequencing overview*
+
+- Employs a *'sequencing-by-synthesis'* approach
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/HMyCqWhwB8E" frameborder="0" allowfullscreen></iframe>
+
+http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf
+
+\* Other sequencing technologies are available
+
+## Illumina sequencing
+http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf
+
+![](images/illuminaSeq1.png)
+
+![](images/illuminaSeq2.png)
+
+![](images/illuminaSeq3.png)
+
+
+## Paired-end
+
+![seq4](images/paired-end.png)
+
+## Multiplexing
+![seq5](images/pooling.png)
+
+
+## Image processing 
+
+- Sequencing produces high-resolution TIFF images; not unlike microarray data
+- 100 tiles per lane, 8 lanes per flow cell, 100 cycles
+- 4 images (A,G,C,T) per tile per cycle = 320,000 images
+- Each *TIFF* image ~ 7Mb = 2,240,000 Mb of data (**2.24TB**)
+
+![](images/c6vllanxx_c001_l1_t001_bot_s1_a.jpg)
+
+## Image processing
+
+- Firecrest
+
+![](http://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Regulus_ignicapilla_Arundel.jpg/300px-Regulus_ignicapilla_Arundel.jpg)
+
+
+- *"Uses the raw TIF files to locate clusters on the image, and outputs the cluster intensity, X,Y positions, and an estimate of the noise for each cluster. The output from image analysis provides the input for base calling."*
+
+    + http://openwetware.org/wiki/BioMicroCenter:IlluminaDataPipeline
+- **You will never have to do this**
+    + In fact, the TIFF images are deleted by the instrument
+    
+## Base-calling
+
+- Bustard
+
+![](http://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ardeotis_kori_Etosha.JPG/300px-Ardeotis_kori_Etosha.JPG)
+
+- *"Uses cluster intensities and noise estimate to output the sequence of bases read from each cluster, along with a confidence level for each base."*
+    + http://openwetware.org/wiki/BioMicroCenter:IlluminaDataPipeline
+- **You will never have to do this**
+
+
+## <a name=rawreads></a> Raw reads
+
+- The most basic file type you will see is *fastq*
+    + Data in public-repositories (e.g. Short Read Archive, GEO) tend to be in this format
+- This represents all sequences created after imaging process
+- Each sequence is described over 4 lines
+- No standard file extension. *.fq*, *.fastq*, *.sequence.txt*
+- Essentially they are text files
+    + Can be manipulated with standard unix tools; e.g. *cat*, *head*, *grep*, *more*, *less*
+- They can be compressed and appear as *.fq.gz*
+- Same format regardless of sequencing protocol (i.e. RNA-seq, ChIP-seq, DNA-seq etc)
+
+```
+@SEQ_ID
+GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
++
+!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
+```
+~ 250 Million reads (sequences) per Hi-Seq lane
+
+## Fastq sequence names
+
+```
+@HWUSI-EAS100R:6:73:941:1973#0/1
+```
+
+- The name of the sequencer (HWUSI-EAS100R)
+- The flow cell lane (6)
+- Tile number with the lane (73)
+- x co-ordinate within the tile (941)
+- y co-ordinate within the tile (1973)
+- \#0 index number for a multiplexed sample 
+-  /1; the member of a pair, /1 or /2 (paired-end or mate-pair reads only)
+
+## Fastq quality scores
+
+```
+!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
+```
+
+- Quality scores $$ Q = -10log_{10}p$$
+    + Q = 30, p=0.001
+    + Q = 20, p=0.01
+    + Q = 10, p=0.1
+- These numeric quanties are *encoded* as **ASCII** code
+    + An offset needs to be used before encoding
+    + At least 33 to get to meaningful characters
+
+
+
+## Fastq quality scores
+
+![phred](images/phred.png)
+
+```{}
+head sample.fq1
+head sample.fq2
+```
+
+How many reads does the file contain?
+
+```{}
+wc sample1.fq1
+```
+
+We will now use the ShortRead Bioconductor package to understand these files a bit more. Please note that we are using this package for exploration and to demonstrate what the data look like. We probably wouldn't want to perform these tasks in a production-level analysis.
+
+How many reads are found?
+
+```{r echo=FALSE,message=FALSE}
+library(ShortRead)
+```
+
+
+```{r message=FALSE}
+library(ShortRead)
+fq <- readFastq("sample.fq1")
+fq
+```
+
+The object we have just created is typical of how data are presented in Bioconductor packages; typing the name of the object `fq` prints a summary of the contents to the screen, and we have to use a series of functions to extract the contents. Such functions are referred to as *accessor functions*. One such function is called `sread` and allows us to access the sequencing reads. Conveniently, using the function prints a summary to the screen so that only the first five and last five reads in the file are displayed. The type of this object is a `DNAStringSet`, which is a very efficient way of storing DNA sequences in Bioconductor. The `Biostrings` package has lots of useful tools to manipulate these objects. 
+
+
+```{r}
+sread(fq)
+myreads <- sread(fq)
+```
+
+Even though the data they represent are much more complex, the way in which we subset the data should be familiar to us
+
+Try the following:-
+
+```{r}
+myreads[1:5]
+```
+
+
+As we mentioned, `Biostrings` contains many useful functions for dealing with DNA sequences. One such function is `letterFrequency`. 
+
+```{r}
+af <- letterFrequency(sread(fq), letters=c("A","C","G","T","N"))
+head(af)
+```
+
+Which read has the greatest number of N bases?
+
+```{r echo=FALSE}
+myreads[which.max(af[,5])]
+
+``` 
+
+Recall that we have other information in the file as well as the sequences. For instance, we might have the IDs of the reads. 
+
+```{r}
+myids <- id(fq)
+myids[which.max(af[,5])]
+```
+
+
+Identify reads with extreme GC content?
+```{r}
+gc <- af[,"C"] + af[,"G"]
+hist(gc)
+```
+
+
+
+We can look in more detail at the number of bases that were called during each round of sequencing
+
+```{r}
+abc <- alphabetByCycle(myreads,alphabet = c("A","C","G","T","N"))
+head(abc)
+```
+
+We can visualise the number of N bases, and how they increase
+```{r}
+plot(1:68, abc[5,1:68],type="n")
+text(1:68, abc[5,1:68], label="N")
+```
+
+
+Can you make the following plot to illustrate the number of each DNA base observed at each position?
+
+```{r echo=FALSE}
+plot(abc[1,],type="n",ylim=c(0,2000000))
+text(abc[1,1:68],label="A",col="red")
+text(abc[2,1:68],label="C",col="orange")
+text(abc[3,1:68],label="G",col="blue")
+text(abc[4,1:68],label="T",col="green")
+```
+
+
+
+```{r}
+readTbl <- tables(fq)
+readTbl$top
+```
+
+The final piece of information in the fastq file is the *quality* associated with each base call. This is especially important when it comes to calling SNVs, as we need to be sure of the bases we observe
+
+```{r}
+quality(fq)
+myquals <- quality(fq)
+```
+
+We noted before, a variey of different schemes can be used to encode the qualities. Fortunately, with the help of the `encoding` function, we can make a guess about what scale is being used in our file
+
+What can you say about the quality of base calls in the first five reads?
+
+```{r}
+encoding(quality(fq))
+myquals
+
+```
+
+Quality scores can often be used to motivate the need for trimming, or to use an aligner that can incorporate quality information
+
+```{r}
+qm <- as(quality(fq), "matrix")
+head(qm)
+qualmeans <- colMeans(qm)
+plot(qualmeans)
+```
+
+As we said, in practice we would not normally look into fastq files in such depth in R.
+
+[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) from Babraham Bioinformatics Core has emerged as the standard tool for performing quality assessment on sequencing reads 
+
+![fastqc](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc.png)
+
+It can be run from the command line as follows;
+
+```{}
+fastqc sample.fq1
+```
+
+As a result, you should get two files in your working directory; `sample.fq1_fastqc.zip` and `sample.fq1_fastqc.html`
+
+
+Based on these plots we may want to *trim* our data; *fastqc will not do this for us*
+
+    + A popular choice is ***trimmomatic*** http://www.usadellab.org/cms/index.php?page=trimmomatic
+    + or cutadapt
+
+```{}
+java -jar /home/dunnin01/software/Trimmomatic-0.36/trimmomatic-0.36.jar SE -phred33 sample.fq1 sample.trimmed.fq1 TRAILING:3
+```
+
+How many reads are left after trimming?
+
+```{r cache=TRUE}
+trimmed.fq <- readFastq("sample.trimmed.fq1")
+```
+
+How many were removed?
+
+```{r}
+old.ids <- as.character(id(fq))
+ids.left <- as.character(id(trimmed.fq))
+
+missing.ids <- setdiff(old.ids,ids.left)
+```
+
+Verify why some of the reads were removed
+
+```{r}
+myquals[old.ids %in% missing.ids]
+```
+
+
+## <a name="align"></a> Alignment
+
+- Locating where each generated sequence came from in the genome
+- Outside the scope of this course
+- *Usually* perfomed automatically by a sequencing service
+- For most of what follows in the course, we will assume alignment has been performed and we are dealing with aligned data
+    + Popular aligners
+    + bwa http://bio-bwa.sourceforge.net/
+    + bowtie http://bowtie-bio.sourceforge.net/index.shtml
+    + novoalign http://www.novocraft.com/products/novoalign/
+    + stampy http://www.well.ox.ac.uk/project-stampy
+    + many, many more.....
+    
+    
+For completeness, we will show the commands used to aligned these two example fastq files    
+    
+```{}
+
+```
