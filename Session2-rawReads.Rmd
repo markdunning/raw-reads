@@ -7,12 +7,14 @@ output: html_document
 
 # Overview
 
-
-
+- [Seqeunces in Bioconductor](#bioc)
+- [Fastqc Primer](#fastqc)
+- [Alignment](#alignment)
+- [Appendix](#appendix)
 
 ## Illumina sequencing overview*
 
-- Employs a *'sequencing-by-synthesis'* approach
+This video gives and overview of the  *'sequencing-by-synthesis'* approach used by Illumina. Other companies will have different techniques, but Illumina is probably the most-popular sequencing technology out there. For most of what we will discuss, it won't really matter how your samples were sequenced. 
 
 <iframe width="420" height="315" src="https://www.youtube.com/embed/HMyCqWhwB8E" frameborder="0" allowfullscreen></iframe>
 
@@ -76,7 +78,7 @@ http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumi
 - The most basic file type you will see is probably going to be *fastq*
     + Data in public-repositories (e.g. Short Read Archive, GEO) tend to be in this format
 - This represents all sequences created after imaging process
-
+    + No idea at this stage whether the sequences will align or not
 - No standard file extension. *.fq*, *.fastq*, *.sequence.txt*
 - Essentially they are text files
     + Can be manipulated with standard unix tools; e.g. *cat*, *head*, *grep*, *more*, *less*
@@ -92,7 +94,7 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 ```
 We don't need any special software to view these, but bear in mind there can be ~ 250 Million reads (sequences) per Hi-Seq lane. Opening in Word would not be advisable.
 
-## Fastq sequence names
+### Fastq sequence names
 
 The name of a sequence is unique and can encode some useful information
 
@@ -108,7 +110,7 @@ The name of a sequence is unique and can encode some useful information
 - \#0 index number for a multiplexed sample 
 -  /1; the member of a pair, /1 or /2 (paired-end or mate-pair reads only)
 
-## Fastq quality scores
+### Fastq quality scores
 
 The quality score expresses our confidence in a particular base-call. 
 
@@ -122,14 +124,16 @@ The raw base-calling probabilities are converted to text characters to make it e
 !''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
 ```
 
+First of all, we convert the base-calling probability into a `Q` score using the formula
+
 - Quality scores $$ Q = -10log_{10}p$$
     + Q = 30, p=0.001
     + Q = 20, p=0.01
     + Q = 10, p=0.1
-- These numeric quanties are *encoded* as **ASCII** code
-    + An offset needs to be used before encoding
+- These numeric quanties are *encoded* as [**ASCII**](http://ascii-code.com/) code
+    + ASCII codes 1 - 32 have historical uses such as start of text, carriage return, new line etc
     + At least 33 to get to meaningful characters
-    + ASCII codes 1 - 32 have historical uses such as start of text, carriage return etc
+    + An offset needs to be used before encoding
 
 Annoyingly, different sequencing instruments have used different offsets over time. It's important to check what encoding has been used for your data
 
@@ -142,20 +146,21 @@ Annoyingly, different sequencing instruments have used different offsets over ti
 
 # Hands-on Practice
 
+## Command line
+
 Two example fastq files have been provided for you. Use the following commands to print the first few lines of the files to the screen.
 
 You will need to open a ***Terminal*** to do this and *change directory* to `/home/participant/Course_Materials/Day1/`
 
-[](https://cdn1.iconfinder.com/data/icons/fs-icons-ubuntu-by-franksouza-/512/gnome-terminal.png)
+![](images/gnome-terminal.png)
 
 ******
 ### Exercise
 - How many reads are printed?
 - What is the relationship between `sample.fq1` and `sample.fq2`. What part of the file tells us this?
 - How many lines are there in the file(s)?
+    + the Unix command `wc -l` can tell us the number of lines in a plain text file
 - How many reads does this equate to?
-
-
 
 ```{}
 cd /home/participant/Course_Materials/Day1/
@@ -189,9 +194,11 @@ cat(system("wc -l sample.fq1",intern=TRUE),sep="\n")
 
 ******
 
+## <a name="bioc"></a> Bioconductor
+
 For the next part of the session, we will be using RStudio
 
-[](http://gorcha.org/images/rstudio_icon.png)
+![](http://gorcha.org/images/rstudio_icon.png)
 
 
 We will now use the `ShortRead` Bioconductor package to understand these files a bit more. Please note that we are using this package for exploration and to demonstrate what the data look like. We probably wouldn't want to perform these tasks in a production-level analysis, and there are far superior tools for visualising fastq files (as we will see later).
@@ -205,8 +212,10 @@ library(ShortRead)
 ******
 ### Exercise
 
-How many reads are found?
-How long are they?
+Import the example `fastq` file using the `ShortRead` package.
+
+- How many reads are found?
+- How long is each sequenced read?
 
 ```{r message=FALSE, results='hide'}
 library(ShortRead)
@@ -254,11 +263,12 @@ If we want to chop-up the strings in this manner, we can use the `subseq` functi
 ### Exercise
 
 - What type of object is returned by the `subseq` function
+    + Remember, you can get help on this function by typing `?subseq` in the R console
 - Print the first five basees of the first 10 sequence reads
 - How many reads start with five A's?
     + HINT: we can test for equality using `==` which gives a logical (`TRUE` or `FALSE`)
 
-```{r}
+```{r echo=FALSE}
 firstBases <- subseq(myreads,1,5)
 ```
 
@@ -278,7 +288,7 @@ system.time(substr(myreads, 1,5))
 ```
 
 
-Another useful function is `letterFrequency`, which seeks to tabulate the number of letters in each sequence in the form of a matrix. The `N` here represents bases were a call could not be made
+Another useful function is `letterFrequency`, which seeks to tabulate the number of letters in each sequence in the form of a matrix. The `N` here represents positions were a call could not be made
 
 ```{r}
 af <- letterFrequency(sread(fq), letters=c("A","C","G","T","N"))
@@ -333,17 +343,17 @@ Recall that we have other information in the file as well as the sequences. For 
 ```{r}
 myids <- id(fq)
 myids
-myids[which.max(af[,5])]
+myids[which(af[,5]>4)]
 ```
 
 We can look in more detail at the number of bases that were called during each round of sequencing
 
 ```{r}
 abc <- alphabetByCycle(myreads,alphabet = c("A","C","G","T","N"))
-head(abc)
+head(abc)[,1:5]
 ```
 
-We can visualise the number of N bases, and how they increase
+We can visualise the number of N bases, and how they increase as sequencing progresses
 ```{r}
 plot(1:68, abc[5,1:68],type="n")
 text(1:68, abc[5,1:68], label="N")
@@ -385,7 +395,9 @@ encoding(quality(fq))
 ### Exercise
 
 - What can you say about the quality of base calls in the first five reads?
-- What reads seem to have lower quality? Is it a particular part of the read that is low quality?
+- What reads seem to have lower quality? 
+    + Is it a particular part of the read that is low quality? 
+    + Or the whole read?
 
 ******
 
@@ -416,8 +428,8 @@ plot(qualmeans)
 
 Hopefully this section was useful in familiarising yourself with the contents of a `fastq` file and give ideas about how R and Bioconductor can interface with sequencing data. However, in practice we would not normally look into fastq files in such depth in R. 
 
-# Fastq Primer and trimming reads
-*(Acknowledge to Ines De Santiago for her session at the [previous summer school](http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day1/NGS_QC_inesdesantiago.pdf))*
+# <a name="fastqc"></a> Fastqc Primer and trimming reads
+*(Acknowledgement to Ines De Santiago for her session at the [previous summer school](http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day1/NGS_QC_inesdesantiago.pdf))*
 
 [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) from Babraham Bioinformatics Core has emerged as the standard tool for performing quality assessment on sequencing reads 
 
@@ -583,7 +595,7 @@ We could re-run fastqc and observe what effect this has on the results
 fastqc sample.trimmed.fq1
 ```
 
-# <a name="align"></a> Alignment
+# <a name="alignment"></a> Alignment
 
 - Locating where each generated sequence came from in the genome
 - Outside the scope of this course
