@@ -408,15 +408,6 @@ qm <- as(quality(fq), "matrix")
 head(qm)
 ```
 
-A few basic R plots can reveal the drop-off in quality for the first few reads.
-
-```{r}
-plot(qm[1,],type="b",col="red",pch=16)
-points(qm[2,],type="b",col="orange",pch=16)
-points(qm[3,],type="b",col="green",pch=16)
-points(qm[4,],type="b",col="blue",pch=16)
-points(qm[5,],type="b",col="purple",pch=16)
-```
 
 To look at global trends, it is useful to look at the mean quality at each base. The `colMeans` function in R provides a quick way of being able to compute the average (mean) of each column in a *matrix*. 
 
@@ -542,13 +533,17 @@ The tool will attempt to identify and adapters present in the data
 
 10) [Kmer Content](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/11%20Kmer%20Content.html)
 
+Although the overrepresented sequences section above will identify sequences that are *exactly* duplicated, it may miss other problems in the data such as i) long sequences with poor quality ii) repeated sequences appearing at various places
+
+This section reports the positional bias of the 6 most-biased k-mers
+
 ![](images/fastqc-11a.png)
 
-![](images/fastqc-11c.png)
+*"Random"* hexamer primer in RNA-seq libraries are sometimes not as random as we would hope
 
-![](images/fastqc-11d.png)
+![](images/fastqc-11b.png)
 
-
+Described in detail in [Hansen et al. (2010)](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2896536/)
 
 ******
 
