@@ -85,18 +85,18 @@ http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumi
 - They can be compressed and appear as *.fq.gz*
 - Same format regardless of sequencing protocol (i.e. RNA-seq, ChIP-seq, DNA-seq etc)
 - Each sequence is described over 4 lines
+- For paired-end data you can get two files
+    + they should have the same number of lines
+    + the sequences should be in the same order
 
-```
-@SEQ_ID
-GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
-+
-!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
-```
-We don't need any special software to view these, but bear in mind there can be ~ 250 Million reads (sequences) per Hi-Seq lane. Opening in Word would not be advisable.
+
+![](images/fastq-header.png)
+
+We don't need any special software to view these, but bear in mind there can be ~ 250 Million reads (sequences) per Hi-Seq lane. Opening in Word would not be advisable!
 
 ### Fastq sequence names
 
-The name of a sequence is unique and can encode some useful information
+The name of a sequence is unique and can encode some useful information. e.g.
 
 ```
 @HWUSI-EAS100R:6:73:941:1973#0/1
@@ -110,6 +110,8 @@ The name of a sequence is unique and can encode some useful information
 - \#0 index number for a multiplexed sample 
 -  /1; the member of a pair, /1 or /2 (paired-end or mate-pair reads only)
 
+However, this depends on instrument setup and processing pipelines. Sometimes the tile and coordinate information is omitted to save space. 
+
 ### Fastq quality scores
 
 The quality score expresses our confidence in a particular base-call. 
@@ -121,7 +123,7 @@ The quality score expresses our confidence in a particular base-call.
 The raw base-calling probabilities are converted to text characters to make it easier to store in a file
 
 ```
-!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
+N?>:<9>>>:=;>>?<>:@?>;==@@@>?=AAA<>=A@?6>4B=<>>.@>?<@;?#############
 ```
 
 First of all, we convert the base-calling probability into a `Q` score using the formula
@@ -140,8 +142,41 @@ Annoyingly, different sequencing instruments have used different offsets over ti
 - Most modern sequencing will be `Phred+33`
 - Tools should be able to detect what is in-use
 
+This hnady graphic compares the different schemes
+
 ![](images/phred.png)
 
+Given a particular quality string, we have to look-up the ASCII code for each character and subtract the offset to get the Q score. We can then convert to a probability using the formula:-
+
+$$ p = 10^{-Q/10} $$
+
+```{r echo=FALSE,message=FALSE,warning=FALSE,comment=NA}
+library(ShortRead)
+
+pq <- PhredQuality("N?>:<9>>>:=;>>?<>:@?>;==@@@>?=AAA<>=A@?6>4B=<>>.@>?<@;?#############")
+code <- as.integer(charToRaw(as.character(pq)))
+qs <- as(pq, "IntegerList")
+probs <- 10^(unlist(qs)/-10)
+
+df <- data.frame(Character = unlist(strsplit(as.character(pq),"")), Code = code, "Minus Offset (33) " = code -33,Probability = round(probs,3))
+df[1:10,]
+cat(".../n")
+cat(".../n")
+df[58:68,]
+```
+
+For the extremely-curious...
+
+```{r}
+library(ShortRead)
+pq <- PhredQuality("N?>:<9>>>:=;>>?<>:@?>;==@@@>?=AAA<>=A@?6>4B=<>>.@>?<@;?#############")
+code <- as.integer(charToRaw(as.character(pq)))
+code
+qs <- as(pq, "IntegerList")
+qs
+probs <- 10^(unlist(qs)/-10)
+round(probs,3)
+```
 
 
 # Hands-on Practice
