@@ -18,40 +18,53 @@ This video gives and overview of the  *'sequencing-by-synthesis'* approach used 
 
 <iframe width="420" height="315" src="https://www.youtube.com/embed/HMyCqWhwB8E" frameborder="0" allowfullscreen></iframe>
 
-http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf
 
 \* Other sequencing technologies are available
 
 ## Illumina sequencing
-http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf
 
+(as explained by a Bioinformatician who has never actually stepped into the lab....)
+
+Images from:- http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf
+
+A *library* is prepared by fragmenting the DNA of interest and adaptors each added to each end of the fragments
+ 
 ![](images/illuminaSeq1.png)
 
+A *flow-cell* has already been prepared to have a *"lawn"* of sequences that are complementary to the adaptors. *Bridge amplification* forms clusters of identical fragments on the flow-cell surface
+
 ![](images/illuminaSeq2.png)
+
+The construction of a sequencing reads involves adding each DNA base (each given a distinct flourescent label) one at a time, simulataneously across the whole flow-cell, and taking an image. *"N"* cycles means the process is of adding the bases in repeated n times. This produces the images that are the raw output of a sequencing run.
 
 ![](images/illuminaSeq3.png)
 
 
 ## Paired-end
 
+Most of the sequencing we come across in this course is likely to the *paired-end*, which means that we are sequencing both "ends" of the fragment. This will allow us to achieve better alignment to tricky regions of the genome and detect some kinds of variation that would not be possible with single-end reads alone
+
 ![](images/paired-end.png)
 
 ## Multiplexing
+
+We
 ![](images/pooling.png)
 
 
 ## Image processing 
 
-- Sequencing produces high-resolution TIFF images; not unlike microarray data
+- Sequencing produces high-resolution `.TIFF` images; not unlike microarray data
 - 100 tiles per lane, 8 lanes per flow cell, 100 cycles
 - 4 images (A,G,C,T) per tile per cycle = 320,000 images
-- Each *TIFF* image ~ 7Mb = 2,240,000 Mb of data (**2.24TB**)
+- Each `.TIFF` image ~ 7Mb = 2,240,000 Mb of data (**2.24TB**)
+
 
 ![](images/c6vllanxx_c001_l1_t001_bot_s1_a.jpg)
 
 ## Image processing
 
-- Firecrest
+- "*Firecrest*"
 
 ![](http://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Regulus_ignicapilla_Arundel.jpg/300px-Regulus_ignicapilla_Arundel.jpg)
 
@@ -64,7 +77,7 @@ http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumi
     
 ## Base-calling
 
-- Bustard
+- "*Bustard*"
 
 ![](http://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ardeotis_kori_Etosha.JPG/300px-Ardeotis_kori_Etosha.JPG)
 
@@ -85,7 +98,7 @@ http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumi
 - They can be compressed and appear as *.fq.gz*
 - Same format regardless of sequencing protocol (i.e. RNA-seq, ChIP-seq, DNA-seq etc)
 - Each sequence is described over 4 lines
-- For paired-end data you can get two files
+- For paired-end data you get two files
     + they should have the same number of lines
     + the sequences should be in the same order
 
@@ -142,13 +155,21 @@ Annoyingly, different sequencing instruments have used different offsets over ti
 - Most modern sequencing will be `Phred+33`
 - Tools should be able to detect what is in-use
 
-This hnady graphic compares the different schemes
+This handy graphic compares the different schemes
 
-![](images/phred.png)
+![](images/phred.png)  
 
 Given a particular quality string, we have to look-up the ASCII code for each character and subtract the offset to get the Q score. We can then convert to a probability using the formula:-
 
 $$ p = 10^{-Q/10} $$
+
+So for our particular example: 
+
+```
+N?>:<9>>>:=;>>?<>:@?>;==@@@>?=AAA<>=A@?6>4B=<>>.@>?<@;?#############
+```
+
+it works out as follows:-
 
 ```{r echo=FALSE,message=FALSE,warning=FALSE,comment=NA}
 library(ShortRead)
@@ -160,8 +181,8 @@ probs <- 10^(unlist(qs)/-10)
 
 df <- data.frame(Character = unlist(strsplit(as.character(pq),"")), Code = code, "Minus Offset (33) " = code -33,Probability = round(probs,3))
 df[1:10,]
-cat(".../n")
-cat(".../n")
+cat("...")
+cat("...")
 df[58:68,]
 ```
 
@@ -296,16 +317,17 @@ If we want to chop-up the strings in this manner, we can use the `subseq` functi
 ******
 
 ### Exercise
+- Use `subseq` to print the first five basees of the sequenced reads
+
+```{r}
+firstBases <- subseq(myreads,1,5)
+firstBases
+```
 
 - What type of object is returned by the `subseq` function
     + Remember, you can get help on this function by typing `?subseq` in the R console
-- Print the first five basees of the first 10 sequence reads
 - How many reads start with five A's?
     + HINT: we can test for equality using `==` which gives a logical (`TRUE` or `FALSE`)
-
-```{r echo=FALSE}
-firstBases <- subseq(myreads,1,5)
-```
 
 ******
 
@@ -323,7 +345,7 @@ system.time(substr(myreads, 1,5))
 ```
 
 
-Another useful function is `letterFrequency`, which seeks to tabulate the number of letters in each sequence in the form of a matrix. The `N` here represents positions were a call could not be made
+Another useful function is `letterFrequency`, which seeks to tabulate the number of letters in each sequence in the form of a matrix. 
 
 ```{r}
 af <- letterFrequency(sread(fq), letters=c("A","C","G","T","N"))
@@ -341,6 +363,7 @@ hist(aS)
 
 ### Exercise
 
+- What do you think the N column could represent?
 - Which read has the greatest number of N bases?
 - Create a vector to represent the "GC" content of each read
 - What is the mean number of GC bases?
@@ -381,14 +404,15 @@ myids
 myids[which(af[,5]>4)]
 ```
 
-We can look in more detail at the number of bases that were called during each round of sequencing
+We can also look in more detail at the number of bases that were called during each round of sequencing
 
 ```{r}
 abc <- alphabetByCycle(myreads,alphabet = c("A","C","G","T","N"))
 head(abc)[,1:5]
 ```
 
-We can visualise the number of N bases, and how they increase as sequencing progresses
+We can visualise the number of N bases, and how they increase as sequencing progresses. Observing more N bases towards the end of the sequencing run is common, but not always a cause for alarm.
+
 ```{r}
 plot(1:68, abc[5,1:68],type="n")
 text(1:68, abc[5,1:68], label="N")
@@ -509,7 +533,7 @@ Sometimes you will get biased sequencing composition at the start of reads due t
 
 ![](images/fastqc-4b.png)
 
-And some biases are inevitable due to the type of sequencing being performed. e.g. RNA-seq
+And some biases are inevitable due to the type of sequencing being performed. e.g. RNA-seq is know to introduce biases at the start of reads due to ["random" hexamer priming](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2896536/)
 
 ![](images/fastqc-4c.png)
 
@@ -519,7 +543,7 @@ Or in the cases of a RRBS library, you will have converted most of the C bases t
 
 5) [Per-sequence GC content](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/5%20Per%20Sequence%20GC%20Content.html)
 
-A familiar bell-shaped normal distribution should be seen. However, the location of the mean (central peak) will depend on the species being sequenced. `fastqc` has no way of knowing what species to expect, so may produce a warning or error message
+A familiar bell-shaped normal distribution should be seen. However, the location of the mean (central peak) will depend on the species being sequenced. `fastqc` has no way of knowing what species to expect, so may produce a warning or error message for an otherwise good-quality sequencing run.
 
 ![](images/fastqc-5a.png)
 
@@ -527,11 +551,10 @@ Significant deviations from normal would tend to signify a problem with the libr
 
 ![](images/fastqc-5b.png)
 
-![](images/fastqc-5c.png)
 
 6) [Per-base N content](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/6%20Per%20Base%20N%20Content.html)
 
-Recall that an `N` bases is found when we are not confident enough to make a particular base call. We might sometimes see some N appearing at the end of a sequence due to the expected drop in quality, although this should be a low proportion.
+Recall that an `N` base is recorded when we are not confident enough to make a particular base call. We might sometimes see some `N `appearing at the end of a sequence due to the expected drop in quality, although this should be a low proportion.
 
 ![](images/fastqc-6a.png)
 
@@ -539,7 +562,7 @@ Recall that an `N` bases is found when we are not confident enough to make a par
 
 7) [Sequence length distribution](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/7%20Sequence%20Length%20Distribution.html)
 
-As you might expect, this will tell you if all your reads are not the same length. There might be entirely justifiable reasons for having reads of different length, so again we may wish to ignore any warnings that arise from this part of the report.
+As you might expect, this will tell you if all your reads are not the same length. There might be entirely plausible reasons for having reads of different length (e.g. reads generated from multiple runs), so again we may wish to ignore any warnings that arise from this part of the report.
 
 ![](images/fastqc-8a.png)
 
@@ -561,7 +584,7 @@ A perfectly good and respectable RNA-seq library may have duplication rates abov
 This section of the report can highlight contamination or lower-than-expected diversity
 ![](images/fastqc-10a.png)
 
-The tool will attempt to identify and adapters present in the data
+The tool will attempt to identify and adaptors present in the data from common ones that it knows about
 ![](images/fastqc-10b.png)
 
 
@@ -570,7 +593,7 @@ The tool will attempt to identify and adapters present in the data
 
 Although the overrepresented sequences section above will identify sequences that are *exactly* duplicated, it may miss other problems in the data such as i) long sequences with poor quality ii) repeated sequences appearing at various places
 
-This section reports the positional bias of the 6 most-biased k-mers
+This section reports the positional bias of the 6 most-biased k-mers, and whereabouts they occur in the read
 
 ![](images/fastqc-11a.png)
 
@@ -585,37 +608,102 @@ Described in detail in [Hansen et al. (2010)](http://www.ncbi.nlm.nih.gov/pmc/ar
 ### Exercise
 
 - View the `fastqc` report for our example `.fq` file
+    + see the start of this section for how to run the tool
 - Are there any areas of concern?
 
 ******
 
 
-Based on these plots we may want to *trim* our data; *fastqc will not do this for us*.  Popular choices are [trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic) and  [cutadapt](http://cutadapt.readthedocs.io/en/stable/index.html); both of which should be installed on your computers. Trimmomatic is interesting as it allows for differently-sized reads. 
+Based on these plots we may want to *trim* our data; *fastqc will not do this for us*.  
 
-To use `trimmomatic` we can run the following in a Terminal.
+Popular choices are [fastx_toolit](http://hannonlab.cshl.edu/fastx_toolkit/), [trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic) and  [cutadapt](http://cutadapt.readthedocs.io/en/stable/index.html); both of which should be installed on your computers. As implied by the name, `cutadapt` is useful for removing adaptor sequences. 
+
+`fastx_toolkit` allows us to remove reads that do not have a high enough proportion of high-quality reads.
 
 ```{}
-java -jar /home/dunnin01/software/Trimmomatic-0.36/trimmomatic-0.36.jar SE -phred33 sample.fq1 sample.trimmed.fq1 TRAILING:3
+fastq_quality_filter -v Q 33 -q 20 -p 75 -i Day1/sample.fq1 -o Day1/sample_filtered.fq
 ```
 
-How many reads are left after trimming?
+the options were used:-
+
+```{}
+-i: input file
+-o: output file
+-v: report the number of sequences
+-Q:  33, determines the input quality ASCII offset
+-q: 20, the quality value required
+-p 75: the percentage of bases required to have that quality value
+```
+
+the output should be something like...
+
+```{}
+Quality cut-off: 20
+Minimum percentage: 75
+Input: 6290535 reads.
+Output: 5399767 reads.
+discarded 890768 (14%) low-quality reads.
+```
+
+It can also do straightforward trimming to a particular read length
+
+```{}
+fastx_trimmer -v -f 1 -l 60 -i Day1/sample.fq1 -o Day1/sample.fastx.trimmed.fq1
+```
+
+the options specified were:-
+
+```{}
+-f: first base to keep
+-l: last base to keep
+-i: input file
+-o: output file
+-v: report number of sequences
+```
+
+
+Trimmomatic is interesting as it allows for differently-sized reads. 
+
+To use `trimmomatic` we can run the following in a Terminal. Here `$TRIMMOMATIC` is used to refer to the particular location that the tool has been installed to.
+
+```{}
+java -jar $TRIMMOMATIC SE -phred33 Day1/sample.fq1 Day1/sample.trimmed.fq1 TRAILING:3 MINLEN:30
+```
+
+```{}
+SE: run single-end mode
+-phred33: use the offset of 33 to interpret quality scores
+TRAILING:3 cut bases from the end of the read if below 3
+```
+
+
+For this output file it is instructive to load using `ShortRead`
 
 ```{r cache=TRUE}
 trimmed.fq <- readFastq("sample.trimmed.fq1")
+trimmed.fq
 ```
 
 How many were removed?
+
+```{r}
+length(trimmed.fq)/length(fq)
+```
+
+```{r}
+summary(width(sread(trimmed.fq)))
+hist(width(sread(trimmed.fq)))
+```
+
+
+We can verify why some of the reads were removed
 
 ```{r}
 old.ids <- as.character(id(fq))
 ids.left <- as.character(id(trimmed.fq))
 
 missing.ids <- setdiff(old.ids,ids.left)
-```
 
-We can verify why some of the reads were removed
-
-```{r}
 myquals[old.ids %in% missing.ids]
 ```
 
