@@ -27,28 +27,54 @@ This video gives and overview of the  *'sequencing-by-synthesis'* approach used 
 
 Images from:- http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf
 
-A *library* is prepared by fragmenting the DNA of interest and adaptors each added to each end of the fragments
- 
-![](images/illuminaSeq1.png)
+A *library* is prepared by breaking the DNA of interest into shorter, *single-strand fragments*. *Adapters* are each added to each end of the fragments. A *flow-cell* has already been prepared to have a *"lawn"* of sequences that are complementary to the adapters. 
 
-A *flow-cell* has already been prepared to have a *"lawn"* of sequences that are complementary to the adaptors. *Bridge amplification* forms clusters of identical fragments on the flow-cell surface
+![](images/flow-cell-bare.png)
 
-![](images/illuminaSeq2.png)
+*Bridge amplification* forms clusters of identical fragments on the flow-cell surface. This is required as we're going to be taking images of the flow-cell and need even copies of each fragment so that we get a decent signal. However, as we'll see later, this can introduce errors.
 
-The construction of a sequencing reads involves adding each DNA base (each given a distinct flourescent label) one at a time, simulataneously across the whole flow-cell, and taking an image. *"N"* cycles means the process is of adding the bases in repeated n times. This produces the images that are the raw output of a sequencing run.
+![](images/flow-cell.png)
 
-![](images/illuminaSeq3.png)
+The construction of a sequencing reads involves adding a single, terminated, DNA base (each given a distinct flourescent label) one at a time, simulataneously across the whole flow-cell, and taking an image. 
 
+So, we try adding an "A" with a red label
+
+![](images/cycle1A.png)
+
+and then a "T" with a green
+
+![](images/cycle1T.png)
+
+Analysis of the image can determine which base was succesfully incorporated to each fragment. 
+
+![](images/cycle1-image.png)
+
+The process of added each base repeats for the next cycle, and so-on for *"N"* cycles. e.g. 100 times for a 100-base sequence.
+
+![](images/cycle2.png)
+
+Although this process is high-optimised and refined, the sheer number of reactions being performed means that errors are inevitable. The signal from a particular cluster could be affected by interference from its neighbours
+
+![](images/over-cluster.png)
+
+Or sometimes we get a bit over-excited and add too many bases
+
+![](images/over-run.png)
+
+Therefore the identification of bases comes with some degree of uncertainty which we must capture. 
 
 ## Paired-end
 
-Most of the sequencing we come across in this course is likely to the *paired-end*, which means that we are sequencing both "ends" of the fragment. This will allow us to achieve better alignment to tricky regions of the genome and detect some kinds of variation that would not be possible with single-end reads alone
+Most of the sequencing we come across in this course is likely to the *paired-end*, which means that we are sequencing both "ends" of the fragment. This will allow us to achieve better alignment to tricky regions of the genome and detect some kinds of variation that would not be possible with single-end reads alone. It also gives us greater confidence in the alignments and detecting artefacts caused by PCR amplification
 
 ![](images/paired-end.png)
 
 ## Multiplexing
 
-We
+We can also add multiple samples into the same sequencing library. The fragments from each sequence can be identified by a barcode (typically a few bases in length) unique to that sample. When the sequence reads are generated, they have the barcode at the beginning. The process of *demultiplexing* is used to identify to barcodes present for each read and split into separate files for alignment. 
+
+Multiplexing is a way of increasing our sample size. 
+
 ![](images/pooling.png)
 
 
@@ -127,7 +153,7 @@ However, this depends on instrument setup and processing pipelines. Sometimes th
 
 ### Fastq quality scores
 
-The quality score expresses our confidence in a particular base-call. 
+As we saw earlier the process of deciding which base is present at cycle of each fragment comes with some probability (`p`) that we make a mistake. The quality score expresses our confidence in a particular base-call. 
 
 - One such score for each base of sequencing. i.e. 100 scores for 100 bases of sequencing
 - These are of importance if we want to call SNVs etc.
@@ -139,7 +165,7 @@ The raw base-calling probabilities are converted to text characters to make it e
 N?>:<9>>>:=;>>?<>:@?>;==@@@>?=AAA<>=A@?6>4B=<>>.@>?<@;?#############
 ```
 
-First of all, we convert the base-calling probability into a `Q` score using the formula
+First of all, we convert the base-calling probability (p) into a `Q` score using the formula
 
 - Quality scores $$ Q = -10log_{10}p$$
     + Q = 30, p=0.001
@@ -148,7 +174,7 @@ First of all, we convert the base-calling probability into a `Q` score using the
 - These numeric quanties are *encoded* as [**ASCII**](http://ascii-code.com/) code
     + ASCII codes 1 - 32 have historical uses such as start of text, carriage return, new line etc
     + At least 33 to get to meaningful characters
-    + An offset needs to be used before encoding
+
 
 Annoyingly, different sequencing instruments have used different offsets over time. It's important to check what encoding has been used for your data
 
@@ -186,14 +212,12 @@ cat("...")
 df[58:68,]
 ```
 
-For the extremely-curious...
+For the extremely-curious we can do this in `R`
 
 ```{r}
-library(ShortRead)
-pq <- PhredQuality("N?>:<9>>>:=;>>?<>:@?>;==@@@>?=AAA<>=A@?6>4B=<>>.@>?<@;?#############")
+pq <- "N?>:<9>>>:=;>>?<>:@?>;==@@@>?=AAA<>=A@?6>4B=<>>.@>?<@;?#############"
 code <- as.integer(charToRaw(as.character(pq)))
-code
-qs <- as(pq, "IntegerList")
+qs <- code -33
 qs
 probs <- 10^(unlist(qs)/-10)
 round(probs,3)
@@ -283,7 +307,7 @@ fq
 
 The object we have just created is typical of how data are presented in Bioconductor packages; typing the name of the object `fq` prints a summary of the contents to the screen, and we have to use a series of functions to extract the contents. Such functions are referred to as *accessor functions*. 
 
-One such function is called `sread` and allows us to access the sequencing reads. Conveniently, using the function prints a summary to the screen so that only the first five and last five reads in the file are displayed. The type of this object is a `DNAStringSet`, which is a very efficient way of storing DNA sequences in Bioconductor. The `Biostrings` package has lots of useful tools to manipulate these objects. We can save the result of `sread` to a variable for futher processing.
+One such function is called `sread` and allows us to access the sequencing reads. Conveniently, the function prints a summary to the screen so that only the first five and last five reads in the file are displayed. The type of this object is a `DNAStringSet`, which is a very efficient way of storing DNA sequences in Bioconductor. The `Biostrings` package has lots of useful tools to manipulate these objects. We can save the result of `sread` to a variable for futher processing.
 
 
 ```{r}

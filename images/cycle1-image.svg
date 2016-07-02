@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg8585"
+   version="1.1"
+   inkscape:version="0.91 r"
+   sodipodi:docname="cycle1-image.svg"
+   inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/cycle1-image.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs8587" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="119.38372"
+     inkscape:cy="764.92903"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata8590">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#999999;fill-opacity:0.35443038;stroke:#190000;stroke-width:2.4000001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect11109"
+       width="620"
+       height="297.14285"
+       x="74.285713"
+       y="140.93364" />
+    <path
+       style="fill:#ffff00;fill-opacity:1;stroke:#190000;stroke-width:0.60972631;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path5630-3"
+       sodipodi:type="arc"
+       sodipodi:cx="160.61404"
+       sodipodi:cy="336.16321"
+       sodipodi:rx="23.046202"
+       sodipodi:ry="17.239283"
+       sodipodi:start="4.9801748"
+       sodipodi:end="4.8613328"
+       d="m 166.712,319.53835 a 23.046202,17.239283 0 0 1 16.2982,20.69044 23.046202,17.239283 0 0 1 -27.1635,12.80082 23.046202,17.239283 0 0 1 -17.91205,-19.92992 23.046202,17.239283 0 0 1 26.09931,-13.9849"
+       sodipodi:open="true"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/cycle2.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#00ff00;fill-opacity:1;stroke:#190000;stroke-width:0.60972631;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path5630-62"
+       sodipodi:type="arc"
+       sodipodi:cx="290.92371"
+       sodipodi:cy="212.92461"
+       sodipodi:rx="23.046202"
+       sodipodi:ry="17.239283"
+       sodipodi:start="4.9801748"
+       sodipodi:end="4.8613328"
+       d="m 297.02166,196.29975 a 23.046202,17.239283 0 0 1 16.2982,20.69044 23.046202,17.239283 0 0 1 -27.1635,12.80082 23.046202,17.239283 0 0 1 -17.91205,-19.92992 23.046202,17.239283 0 0 1 26.09931,-13.9849"
+       sodipodi:open="true"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/cycle2.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ff0000;fill-opacity:1;stroke:#190000;stroke-width:0.60972631;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path5630-6"
+       sodipodi:type="arc"
+       sodipodi:cx="587.90857"
+       sodipodi:cy="213.93475"
+       sodipodi:rx="23.046202"
+       sodipodi:ry="17.239283"
+       sodipodi:start="4.9801748"
+       sodipodi:end="4.8613328"
+       d="m 594.00652,197.30989 a 23.046202,17.239283 0 0 1 16.2982,20.69045 23.046202,17.239283 0 0 1 -27.1635,12.80082 23.046202,17.239283 0 0 1 -17.91204,-19.92992 23.046202,17.239283 0 0 1 26.0993,-13.9849"
+       sodipodi:open="true"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/cycle2.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#0000ff;fill-opacity:1;stroke:#190000;stroke-width:0.60972631;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path5630-7"
+       sodipodi:type="arc"
+       sodipodi:cx="334.36026"
+       sodipodi:cy="341.21396"
+       sodipodi:rx="23.046202"
+       sodipodi:ry="17.239283"
+       sodipodi:start="4.9801748"
+       sodipodi:end="4.8613328"
+       d="m 340.45821,324.5891 a 23.046202,17.239283 0 0 1 16.2982,20.69044 23.046202,17.239283 0 0 1 -27.1635,12.80082 23.046202,17.239283 0 0 1 -17.91204,-19.92992 23.046202,17.239283 0 0 1 26.0993,-13.9849"
+       sodipodi:open="true"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/cycle2.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="147.48227"
+       y="392.73257"
+       id="text11171"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan11173"
+         x="147.48227"
+         y="392.73257">1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="269.71072"
+       y="189.69194"
+       id="text11175"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan11177"
+         x="269.71072"
+         y="189.69194">2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="330.31989"
+       y="394.7529"
+       id="text11179"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan11181"
+         x="330.31989"
+         y="394.7529">3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="576.79712"
+       y="193.73254"
+       id="text11183"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan11185"
+         x="576.79712"
+         y="193.73254">4</tspan></text>
+  </g>
+</svg>

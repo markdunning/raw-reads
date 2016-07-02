@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="297mm"
+   height="210mm"
+   viewBox="0 0 1052.3622 744.09448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r"
+   inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/cycle1T.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90"
+   sodipodi:docname="flow-cell-bare.svg">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="-616.36984 : 699.65614 : 1"
+       inkscape:vp_y="0 : -643.35437 : 0"
+       inkscape:vp_z="1091.5061 : 699.65614 : 1"
+       inkscape:persp3d-origin="237.56815 : 812.49645 : 1"
+       id="perspective4218" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="374.48511"
+     inkscape:cy="464.61992"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-center="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-308.26772)">
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5"
+       width="10.235466"
+       height="51.17733"
+       x="77.498482"
+       y="730.34747"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#fdff00;fill-opacity:0.39240507;stroke:#190000;stroke-width:1.86876976;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-62-5-3"
+       width="9.5130682"
+       height="146.32713"
+       x="77.723206"
+       y="582.87439"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-3"
+       width="10.235466"
+       height="51.17733"
+       x="382.21277"
+       y="649.17059"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#fdff00;fill-opacity:0.39240507;stroke:#190000;stroke-width:1.86876976;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-62-5-3-2"
+       width="9.5130682"
+       height="146.32713"
+       x="384.4375"
+       y="519.69751"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-0"
+       width="10.235466"
+       height="51.17733"
+       x="602.21277"
+       y="926.31348"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#fdff00;fill-opacity:0.39240507;stroke:#190000;stroke-width:1.86876976;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-62-5-3-6"
+       width="9.5130682"
+       height="146.32713"
+       x="602.4375"
+       y="778.84039"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cd00ff;fill-opacity:0.49367089;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-5-6-0-8"
+       width="10.235466"
+       height="51.17733"
+       x="601.83746"
+       y="727.23364"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-1"
+       width="10.235466"
+       height="51.17733"
+       x="122.02512"
+       y="685.34497"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-6"
+       width="10.235466"
+       height="51.17733"
+       x="187.73941"
+       y="616.77356"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-08"
+       width="10.235466"
+       height="51.17733"
+       x="414.88226"
+       y="613.91638"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-8"
+       width="10.235466"
+       height="51.17733"
+       x="324.88226"
+       y="679.63068"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-89"
+       width="10.235466"
+       height="51.17733"
+       x="573.45367"
+       y="912.48785"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-04"
+       width="10.235466"
+       height="51.17733"
+       x="543.45367"
+       y="863.91638"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cd00ff;fill-opacity:0.49367089;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-5-6-0-7-0"
+       width="10.235466"
+       height="51.17733"
+       x="49.16798"
+       y="689.63068"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cd00ff;fill-opacity:0.49367089;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-5-6-0-7-1"
+       width="10.235466"
+       height="51.17733"
+       x="103.4537"
+       y="752.48785"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cd00ff;fill-opacity:0.49367089;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-5-6-0-7-4"
+       width="10.235466"
+       height="51.17733"
+       x="562.02515"
+       y="758.20209"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cd00ff;fill-opacity:0.49367089;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-5-6-0-7-9"
+       width="10.235466"
+       height="51.17733"
+       x="630.59656"
+       y="939.63068"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cd00ff;fill-opacity:0.49367089;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-5-6-0-7-05"
+       width="10.235466"
+       height="51.17733"
+       x="739.16797"
+       y="619.63068"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cd00ff;fill-opacity:0.49367089;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-5-6-0-7-5"
+       width="10.235466"
+       height="51.17733"
+       x="652.02515"
+       y="619.63068"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-08-3"
+       width="10.235466"
+       height="51.17733"
+       x="613.45367"
+       y="621.05927"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-08-8"
+       width="10.235466"
+       height="51.17733"
+       x="644.88226"
+       y="656.77356"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-08-7"
+       width="10.235466"
+       height="51.17733"
+       x="672.02515"
+       y="599.63068"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-08-0"
+       width="10.235466"
+       height="51.17733"
+       x="623.45367"
+       y="559.63068"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#e3dedb;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.49367088"
+       d="M 15.714286,785.21935 214.28571,998.07649 1245.7143,989.50506 864.28571,540.93363 -167.14286,548.07649 Z"
+       id="path5337"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-88"
+       width="10.235466"
+       height="51.17733"
+       x="77.498482"
+       y="730.34747"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-899"
+       width="10.235466"
+       height="51.17733"
+       x="93.641342"
+       y="699.17059"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cd00ff;fill-opacity:0.49367089;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-5-6-0-93"
+       width="10.235466"
+       height="51.17733"
+       x="77.266045"
+       y="532.09076"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-5"
+       width="10.235466"
+       height="51.17733"
+       x="77.498482"
+       y="730.34747"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-09"
+       width="10.235466"
+       height="51.17733"
+       x="64.770439"
+       y="750.03162"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-54"
+       width="10.235466"
+       height="51.17733"
+       x="81.437958"
+       y="757.10272"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-17"
+       width="10.235466"
+       height="51.17733"
+       x="91.539482"
+       y="737.40472"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-22"
+       width="10.235466"
+       height="51.17733"
+       x="104.67146"
+       y="734.87933"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-77"
+       width="10.235466"
+       height="51.17733"
+       x="367.81622"
+       y="644.97577"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-9"
+       width="10.235466"
+       height="51.17733"
+       x="372.86694"
+       y="670.73468"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-99"
+       width="10.235466"
+       height="51.17733"
+       x="382.96851"
+       y="667.70422"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cd00ff;fill-opacity:0.49367089;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-5-6-0-36"
+       width="10.235466"
+       height="51.17733"
+       x="384.5932"
+       y="468.62439"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-4"
+       width="10.235466"
+       height="51.17733"
+       x="396.10049"
+       y="651.03668"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-35"
+       width="10.235466"
+       height="51.17733"
+       x="355.1893"
+       y="637.3996"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-32"
+       width="10.235466"
+       height="51.17733"
+       x="590.04974"
+       y="934.3844"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.44936709;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-6-5-28"
+       width="10.235466"
+       height="51.17733"
+       x="877.43817"
+       y="628.81335"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#fdff00;fill-opacity:0.39240507;stroke:#190000;stroke-width:1.86876976;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-62-5-3-84"
+       width="9.5130682"
+       height="146.32713"
+       x="877.6629"
+       y="481.34027"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cd00ff;fill-opacity:0.49367089;stroke:#190000;stroke-width:1.1463722;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4138-5-6-0-95"
+       width="10.235466"
+       height="51.17733"
+       x="877.06287"
+       y="429.73352"
+       inkscape:export-filename="/home/dunnin01/work/git/shared-training/raw-reads/images/flow-cell-bare.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+</svg>
