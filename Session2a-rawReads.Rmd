@@ -175,7 +175,7 @@ Annoyingly, different sequencing instruments have used different offsets over ti
 - Most modern sequencing will be `Phred+33`
 - Tools should be able to detect what is in-use
 
-This handy graphic compares the different schemes
+This handy graphic from [wikipedia](https://en.wikipedia.org/wiki/FASTQ_format#Encoding) compares the different schemes
 
 ![](images/phred.png)  
 

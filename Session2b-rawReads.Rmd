@@ -8,21 +8,15 @@ output: html_document
 
 # Hands-on Practice
 
-## Command line
+## Overview
 
-Two example fastq files have been provided for you. Use the following commands to print the first few lines of the files to the screen.
+- Understanding the contents of a fastq file
+- How fastq files can be accessed in Bioconductor
+    + (should you ever need to)
 
-You will need to open a ***Terminal*** to do this and *change directory* to `/home/participant/Course_Materials/Day1/`
+Two example fastq files have been provided for you in the folder `/home/participant/Course_Materials/Day1/`. As we discussed, they can be viewed without any specialist software. If you are curious how these fastq files were generated, you can see the [Appendix](#appendix) for details.
 
-![](images/gnome-terminal.png)
-
-******
-### Exercise
-- How many reads are printed?
-- What is the relationship between `sample.fq1` and `sample.fq2`. What part of the file tells us this?
-- How many lines are there in the file(s)?
-    + the Unix command `wc -l` can tell us the number of lines in a plain text file
-- How many reads does this equate to?
+We can open a ***Terminal*** window and print the first few lines using `head`
 
 ```{}
 cd /home/participant/Course_Materials/Day1/
@@ -46,6 +40,8 @@ head -n 12 sample.fq2
 cat(system("head -n12 sample.fq2",intern=TRUE),sep="\n")
 ```
 
+The unix command `wc` can count the number of lines in a file with the option `-l`
+
 ```{}
 wc -l sample1.fq1
 ```
@@ -54,18 +50,11 @@ wc -l sample1.fq1
 cat(system("wc -l sample.fq1",intern=TRUE),sep="\n")
 ```
 
-******
-
-## <a name="bioc"></a> Bioconductor
-
-For the next part of the session, we will be using RStudio
-
-![](http://gorcha.org/images/rstudio_icon.png)
 
 
 We will now use the `ShortRead` Bioconductor package to understand these files a bit more. Please note that we are using this package for exploration and to demonstrate what the data look like. We probably wouldn't want to perform these tasks in a production-level analysis, and there are far superior tools for visualising fastq files (as we will see later).
 
-If you are curious how these fastq files were generated, you can see the [Appendix](#appendix) for details.
+
 
 ```{r echo=FALSE,message=FALSE}
 library(ShortRead)
@@ -134,10 +123,12 @@ firstBases <- subseq(myreads,1,5)
 firstBases
 ```
 
-- What type of object is returned by the `subseq` function
-    + Remember, you can get help on this function by typing `?subseq` in the R console
+
 - How many reads start with five A's?
     + HINT: we can test for equality using `==` which gives a logical (`TRUE` or `FALSE`)
+    + HINT: `table` can be used to get counts of how many different values occur in a vector
+- What is the most-common five bases at the start of the reads
+    + HINT: `sort` will produce a sorted version of a vector
 
 ******
 
@@ -206,14 +197,6 @@ goodReads <- myreads[-badGCReads]
 ```
 
 
-Recall that we have other information in the file as well as the sequences. For instance, the IDs of the reads can be accessed in a similar fashion. Crucially they are in the same order as the sequencing reads in the `myreads`, so any logical vectors derived from the sequencing reads can be used to subset the IDs; and vice-versa. So if we wanted to know the identities of reads with most N bases, we could do:-
-
-```{r}
-myids <- id(fq)
-myids
-myids[which(af[,5]>4)]
-```
-
 We can also look in more detail at the number of bases that were called during each round of sequencing
 
 ```{r}
@@ -246,14 +229,14 @@ text(abc[4,1:68],label="T",col="green")
 ******
 
 
-The final piece of information in the fastq file is the *quality* associated with each base call. This is especially important when it comes to calling SNVs, as we need to be sure of the bases we observe. The `quality` function is used to access these data.
+Also in the fastq file is the *quality* associated with each base call. This is especially important when it comes to calling SNVs, as we need to be sure of the bases we observe. The `quality` function is used to access these data.
 
 ```{r}
 quality(fq)
 myquals <- quality(fq)
 ```
 
-We noted before, a variey of different schemes can be used to encode the qualities. Fortunately, with the help of the `encoding` function, we can make a guess about what scale is being used in our file
+As we noted before, a variey of [different schemes can be used to encode the qualities](https://en.wikipedia.org/wiki/FASTQ_format#Encoding). Fortunately, with the help of the `encoding` function, we can make a guess about what scale is being used in our file
 
 ```{r}
 encoding(quality(fq))
@@ -269,6 +252,8 @@ encoding(quality(fq))
     + Or the whole read?
 
 ******
+
+
 
 Quality scores can often be used to motivate the need for trimming, or to use an aligner that can incorporate quality information. We can use the following two commands to obtain a more-familiar matrix of numeric values to represent quality
 

@@ -144,7 +144,7 @@ Described in detail in [Hansen et al. (2010)](http://www.ncbi.nlm.nih.gov/pmc/ar
 
 Based on these plots we may want to *trim* our data; *fastqc will not do this for us*.  
 
-Popular choices are [fastx_toolit](http://hannonlab.cshl.edu/fastx_toolkit/), [trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic) and  [cutadapt](http://cutadapt.readthedocs.io/en/stable/index.html); both of which should be installed on your computers. As implied by the name, `cutadapt` is useful for removing adaptor sequences. 
+Popular choices are [fastx_toolit](http://hannonlab.cshl.edu/fastx_toolkit/), [trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic) and  [cutadapt](http://cutadapt.readthedocs.io/en/stable/index.html); all of which should be installed on your computers. As implied by the name, `cutadapt` is useful for removing adaptor sequences. 
 
 `fastx_toolkit` allows us to remove reads that do not have a high enough proportion of high-quality reads.
 
@@ -282,7 +282,7 @@ wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.
 gunzip ref_data/human_g1k_v37.fasta.gz
 ```
 
-`bwa` can *index* the unzipped `.fasta` file. The option `-p` allows us how we want to prefix all the files that the indexing procedure creates. [N.B this step will take a long time]
+`bwa` can *index* the unzipped `.fasta` file. The option `-p` allows us how we want to prefix all the files that the indexing procedure creates. ***[N.B this step will take a long time]***
 
 ```{}
 bwa index -p hg19 -a bwtsw ref_data/human_g1k_v37.fasta
