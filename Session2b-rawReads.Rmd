@@ -55,12 +55,20 @@ cat(system("wc -l sample.fq1",intern=TRUE),sep="\n")
 We will now use the `ShortRead` Bioconductor package to understand these files a bit more. Please note that we are using this package for exploration and to demonstrate what the data look like. We probably wouldn't want to perform these tasks in a production-level analysis, and there are far superior tools for visualising fastq files (as we will see later).
 
 
+## Getting started
 
-```{r echo=FALSE,message=FALSE}
-library(ShortRead)
+### Working directory
+
+```{}
+/home/participant/Course_Materials/Day1/
 ```
 
-Before you begin, you'll need to make sure that your *working directory* is set to `/home/participant/Course_Materials/Day1/`. The easiest way to do this is to navigate the RStudio menus
+## Template
+
+```{}
+/home/participant/Course_Materials/Day1/Session2-template.Rmd
+```
+
 
 ***Session*** -> ***Set Working Directory*** -> ***Choose Directory***
 
