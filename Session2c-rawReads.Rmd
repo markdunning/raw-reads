@@ -9,6 +9,13 @@ output: html_document
 # <a name="fastqc"></a> Fastqc Primer and trimming reads
 *(Acknowledgement to Ines De Santiago for her session at the [previous summer school](http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day1/NGS_QC_inesdesantiago.pdf))*
 
+## Working directory
+
+```{}
+/home/participant/Course_Materials/Day1/
+```
+
+
 [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) from Babraham Bioinformatics Core has emerged as the standard tool for performing quality assessment on sequencing reads 
 
 It can be run from the ***Terminal*** as follows;
@@ -132,15 +139,22 @@ This section reports the positional bias of the 6 most-biased k-mers, and wherea
 Described in detail in [Hansen et al. (2010)](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2896536/)
 
 ******
+******
+******
 
 ### Exercise
 
-- View the `fastqc` report for our example `.fq` file
-    + see the start of this section for how to run the tool
+- View the `fastqc` report for our example file `sample.fq1`
+    + see the start of this section for how to run the `fastqc` tool
 - Are there any areas of concern?
 
 ******
+******
+******
 
+# Optional / advanced section
+
+*If time allows, we will cover how to trim our data*
 
 Based on these plots we may want to *trim* our data; *fastqc will not do this for us*.  
 
@@ -149,7 +163,7 @@ Popular choices are [fastx_toolit](http://hannonlab.cshl.edu/fastx_toolkit/), [t
 `fastx_toolkit` allows us to remove reads that do not have a high enough proportion of high-quality reads.
 
 ```{}
-fastq_quality_filter -v Q 33 -q 20 -p 75 -i Day1/sample.fq1 -o Day1/sample_filtered.fq
+fastq_quality_filter -v Q 33 -q 20 -p 75 -i sample.fq1 -o sample_filtered.fq
 ```
 
 the options were used:-
@@ -176,7 +190,7 @@ discarded 890768 (14%) low-quality reads.
 It can also do straightforward trimming to a particular read length
 
 ```{}
-fastx_trimmer -v -f 1 -l 60 -i Day1/sample.fq1 -o Day1/sample.fastx.trimmed.fq1
+fastx_trimmer -v -f 1 -l 60 -i Day1/sample.fq1 -o sample.fastx.trimmed.fq1
 ```
 
 the options specified were:-
@@ -195,7 +209,7 @@ Trimmomatic is interesting as it allows for differently-sized reads.
 To use `trimmomatic` we can run the following in a Terminal. Here `$TRIMMOMATIC` is used to refer to the particular location that the tool has been installed to.
 
 ```{}
-java -jar $TRIMMOMATIC SE -phred33 Day1/sample.fq1 Day1/sample.trimmed.fq1 TRAILING:3 MINLEN:30
+java -jar $TRIMMOMATIC SE -phred33 sample.fq1 sample.trimmed.fq1 TRAILING:3 MINLEN:30
 ```
 
 ```{}
@@ -278,20 +292,21 @@ For completeness, we will show the commands used to aligned these two example fa
 We have previously downloaded a reference genome from the 1000 genomes into a directory `raw_data`
     
 ```{}
-wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.gz -P ref_data/
+wget http://www.broadinstitute.org/ftp/pub/seq/references/Homo_sapiens_assembly19.fasta -P ../ref_data/
+cd ../ref_data
 gunzip ref_data/human_g1k_v37.fasta.gz
 ```
 
 `bwa` can *index* the unzipped `.fasta` file. The option `-p` allows us how we want to prefix all the files that the indexing procedure creates. ***[N.B this step will take a long time]***
 
 ```{}
-bwa index -p hg19 -a bwtsw ref_data/human_g1k_v37.fasta
+bwa index -p hg19 -a bwtsw Homo_sapiens_assembly19.fasta
 ```
 
 Here's one we made earlier!
 
 ```{}
-ls -l ref_data/
+ls -l ../ref_data/
 ```
 
 The command to perform the alignment is `bwa aln` which has many options. We are going to stick with the default.
@@ -302,16 +317,16 @@ bwa aln
 Each `.fastq` file needs to be aligned separately. The output from this step is in a binary format that we cannot interpret directly.
 
 ```{}
-bwa aln ref_data/hg19 Day1/sample.fq1 > sample_1.sai
+bwa aln ../ref_data/hg19 sample.fq1 > sample_1.sai
 
-bwa aln ref_data/hg19 Day1/sample.fq2 > sample_2.sai
+bwa aln ../ref_data/hg19 sample.fq2 > sample_2.sai
 
 ```
 
 We need to make use of the `bwa sampe` command to create a human-readable format. We give it the files from the previous step and the fastq files.
 
 ```{}
-bwa sampe ../ref_data/human_g1k_v37.fasta sample_1.sai sample_2.sai sample.fq1 sample.fq2 > sample.sam 
+bwa sampe ../ref_data/Homo_sapiens_assembly19.fasta sample_1.sai sample_2.sai sample.fq1 sample.fq2 > sample.sam 
 ```
 
 

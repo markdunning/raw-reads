@@ -43,7 +43,7 @@ cat(system("head -n12 sample.fq2",intern=TRUE),sep="\n")
 The unix command `wc` can count the number of lines in a file with the option `-l`
 
 ```{}
-wc -l sample1.fq1
+wc -l sample.fq1
 ```
 
 ```{r echo=FALSE,comment=NA}
@@ -65,6 +65,8 @@ Before you begin, you'll need to make sure that your *working directory* is set 
 ***Session*** -> ***Set Working Directory*** -> ***Choose Directory***
 
 ******
+******
+******
 ### Exercise
 
 Import the example `fastq` file using the `ShortRead` package.
@@ -72,12 +74,16 @@ Import the example `fastq` file using the `ShortRead` package.
 - How many reads are found?
 - How long is each sequenced read?
 
+
+
 ```{r message=FALSE, results='hide'}
 library(ShortRead)
 fq <- readFastq("sample.fq1")
 fq
 ```
 
+******
+******
 ******
 
 The object we have just created is typical of how data are presented in Bioconductor packages; typing the name of the object `fq` prints a summary of the contents to the screen, and we have to use a series of functions to extract the contents. Such functions are referred to as *accessor functions*. 
@@ -114,6 +120,8 @@ cat(t)
 If we want to chop-up the strings in this manner, we can use the `subseq` function. 
 
 ******
+******
+******
 
 ### Exercise
 - Use `subseq` to print the first five basees of the sequenced reads
@@ -131,7 +139,8 @@ firstBases
     + HINT: `sort` will produce a sorted version of a vector
 
 ******
-
+******
+******
 
 
 As we mentioned, `Biostrings` contains many useful functions for dealing with DNA sequences. Many man-hours have been spent trying to re-implement functions that are already provided in this package; often with less-efficient results! You can consult the help page for `Biostrings` (which can be found via the Packages tab in the bottom-right panel of RStudio) for a full list. 
@@ -161,10 +170,11 @@ hist(aS)
 ```
 
 ******
-
+******
+******
 ### Exercise
 
-- What do you think the N column could represent?
+
 - Which read has the greatest number of N bases?
 - Create a vector to represent the "GC" content of each read
 - What is the mean number of GC bases?
@@ -181,6 +191,8 @@ myreads[gc > 60]
 badGCReads <- which(gc > 60)
 ``` 
 
+******
+******
 ******
 
 Note that at this point we have not performed any manipulation on the reads themselves. If we wanted to make persistent changes to the object, such as creating a subset, we would have to overwrite the `myreads` object (not recommended!) or create a new object
@@ -212,7 +224,8 @@ text(1:68, abc[5,1:68], label="N")
 ```
 
 ******
-
+******
+******
 ### Exercise
 
 
@@ -226,6 +239,9 @@ text(abc[3,1:68],label="G",col="blue")
 text(abc[4,1:68],label="T",col="green")
 ```
 
+
+******
+******
 ******
 
 
@@ -243,6 +259,8 @@ encoding(quality(fq))
 ```
 
 ******
+******
+******
 
 ### Exercise
 
@@ -252,7 +270,8 @@ encoding(quality(fq))
     + Or the whole read?
 
 ******
-
+******
+******
 
 
 Quality scores can often be used to motivate the need for trimming, or to use an aligner that can incorporate quality information. We can use the following two commands to obtain a more-familiar matrix of numeric values to represent quality
