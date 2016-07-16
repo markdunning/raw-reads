@@ -59,18 +59,19 @@ We will now use the `ShortRead` Bioconductor package to understand these files a
 
 ### Working directory
 
+***Session*** -> ***Set Working Directory*** -> ***Choose Directory***
+
 ```{}
 /home/participant/Course_Materials/Day1/
 ```
 
-## Template
+### Template
 
 ```{}
 /home/participant/Course_Materials/Day1/Session2-template.Rmd
 ```
 
 
-***Session*** -> ***Set Working Directory*** -> ***Choose Directory***
 
 ******
 ******
