@@ -133,7 +133,7 @@ If we want to chop-up the strings in this manner, we can use the `subseq` functi
 ******
 
 ### Exercise
-- Use `subseq` to print the first five basees of the sequenced reads
+- Use `subseq` to print the first five bases of the sequenced reads
 
 ```{r}
 firstBases <- subseq(myreads,1,5)
@@ -183,8 +183,6 @@ hist(aS)
 ******
 ### Exercise
 
-
-- Which read has the greatest number of N bases?
 - Create a vector to represent the "GC" content of each read
 - What is the mean number of GC bases?
 - Visualise the GC distribution using a histogram
@@ -211,12 +209,6 @@ myreads
 ```
 
 
-We can remove reads using the negative index approach
-
-```{r eval=FALSE}
-goodReads <- myreads[-badGCReads]
-```
-
 
 We can also look in more detail at the number of bases that were called during each round of sequencing
 
@@ -225,20 +217,8 @@ abc <- alphabetByCycle(myreads,alphabet = c("A","C","G","T","N"))
 head(abc)[,1:5]
 ```
 
-We can visualise the number of N bases, and how they increase as sequencing progresses. Observing more N bases towards the end of the sequencing run is common, but not always a cause for alarm.
 
-```{r}
-plot(1:68, abc[5,1:68],type="n")
-text(1:68, abc[5,1:68], label="N")
-```
-
-******
-******
-******
-### Exercise
-
-
-Can you make the following plot to illustrate the number of each DNA base observed at each position?
+The following plot can be used to illustrate the number of each DNA base observed at each position
 
 ```{r echo=FALSE}
 plot(abc[1,],type="n",ylim=c(0,2000000))
@@ -247,12 +227,6 @@ text(abc[2,1:68],label="C",col="orange")
 text(abc[3,1:68],label="G",col="blue")
 text(abc[4,1:68],label="T",col="green")
 ```
-
-
-******
-******
-******
-
 
 Also in the fastq file is the *quality* associated with each base call. This is especially important when it comes to calling SNVs, as we need to be sure of the bases we observe. The `quality` function is used to access these data.
 
