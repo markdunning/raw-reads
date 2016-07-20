@@ -13,10 +13,11 @@ output: html_document
 - Understanding the contents of a fastq file
 - How fastq files can be accessed in Bioconductor
     + (should you ever need to)
+- How complex data structures can be assessed in Bioconductor
 
 Two example fastq files have been provided for you in the folder `/home/participant/Course_Materials/Day1/`. As we discussed, they can be viewed without any specialist software. If you are curious how these fastq files were generated, you can see the [Appendix](#appendix) for details.
 
-We can open a ***Terminal*** window and print the first few lines using `head`
+We can open a ***Terminal*** window and print the first few lines using the standard unix command `head`
 
 ```{}
 cd /home/participant/Course_Materials/Day1/
@@ -220,7 +221,7 @@ head(abc)[,1:5]
 
 The following plot can be used to illustrate the number of each DNA base observed at each position
 
-```{r echo=FALSE}
+```{r}
 plot(abc[1,],type="n",ylim=c(0,2000000))
 text(abc[1,1:68],label="A",col="red")
 text(abc[2,1:68],label="C",col="orange")
