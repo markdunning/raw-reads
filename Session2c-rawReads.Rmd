@@ -12,7 +12,7 @@ output: html_document
 ## Working directory
 
 ```{}
-/home/participant/Course_Materials/Day1/
+cd /home/participant/Course_Materials/Day1/
 ```
 
 
@@ -288,6 +288,13 @@ fastqc sample.filtered.fq1
     
     
 For completeness, we will show the commands used to aligned these two example fastq files.
+
+Note, that are assuming that you are still located in the `Day1` directory. 
+
+```{}
+cd /home/participant/Course_Materials/Day1
+```
+
 
 We have previously downloaded a reference genome from the 1000 genomes into a directory `raw_data`
     
