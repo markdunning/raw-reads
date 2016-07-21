@@ -5,7 +5,17 @@ date: '`r format(Sys.time(), "Last modified: %d %b %Y")`'
 output: html_document
 ---
 
+# Cast your minds back a few years..
+
+![](images/array-summary.png)
+
+## Plenty of success stories with microarrays
+
+![](images/array-achievements.png)
+
+
 # Why do sequencing?
+
 
 ##Microarrays vs sequencing
 
@@ -15,7 +25,7 @@ output: html_document
 - Sequencing data are 'future proof'
     + if a new genome version comes along, just re-align the data!
     + can grab published-data from public repositories and re-align to **your** own choice of genome / transcripts and aligner
-- Limited number of novel findings from microarays
+- Limited number of novel findings from microarrays
     + can't find what you're not looking for!
 - Genome coverage
     + some areas of genome are problematic to design probes for
@@ -24,6 +34,16 @@ output: html_document
 - Maturity of analysis techniques
     + on the other hand, analysis methods and workflows for microarrays are well-established
     + until recently...
+
+## What did we learn from arrays?
+
+- Experimental Design; despite this fancy new technolgy, if we don't design the experiments properly we won't get meaningful conclusions
+- Quality assessment; Yes, NGS experiments can still go wrong!
+- Normalisation; NGS data come with their own set of biases and error that need to be accounted for
+- Stats; testing for RNA-seq is built-upon the knowledge from microarrays
+- Plenty of tools and workflows were established.
+- ***Don't forget about arrays; the data are all out there somewhere waiting to be discovered and explored***
+
 
 
 ## Illumina sequencing overview*
