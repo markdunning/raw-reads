@@ -17,7 +17,7 @@ output: html_document
 
 Two example fastq files have been provided for you in the folder `/home/participant/Course_Materials/Day1/`. As we discussed, they can be viewed without any specialist software. If you are curious how these fastq files were generated, you can see the [Appendix](#appendix) for details.
 
-We can open a ***Terminal*** window and print the first few lines using the standard unix command `head`
+We can launch the ***CRUK Docker*** from the Desktop and print the first few lines using the standard unix command `head`
 
 ```{}
 cd /home/participant/Course_Materials/Day1/
