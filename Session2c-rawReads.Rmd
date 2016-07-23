@@ -333,7 +333,7 @@ bwa aln ../ref_data/hg19 sample.fq2 > sample_2.sai
 We need to make use of the `bwa sampe` command to create a human-readable format. We give it the files from the previous step and the fastq files.
 
 ```{}
-bwa sampe ../ref_data/Homo_sapiens_assembly19.fasta sample_1.sai sample_2.sai sample.fq1 sample.fq2 > sample.sam 
+bwa sampe ../ref_data/hg19 sample_1.sai sample_2.sai sample.fq1 sample.fq2 > sample.sam 
 ```
 
 
