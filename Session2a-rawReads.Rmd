@@ -57,7 +57,6 @@ This video gives an overview of the  *'sequencing-by-synthesis'* approach used b
 
 ## Illumina sequencing
 
-(as explained by a Bioinformatician who has never actually stepped into the lab....)
 
 Images from:- http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf
 
