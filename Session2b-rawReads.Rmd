@@ -10,19 +10,21 @@ output: html_document
 
 ## Overview
 
-- Understanding the contents of a fastq file
-- How fastq files can be accessed in Bioconductor
-    + (should you ever need to)
+- Understanding the contents of a `.fastq` file
+- How `.fastq` files can be accessed in Bioconductor
+    + (should you ever need to
+- What information in a `.fastq` file can inform us about quality
 - How complex data structures can be assessed in Bioconductor
 
-Two example fastq files have been provided for you in the folder `/home/participant/Course_Materials/Day1/`. As we discussed, they can be viewed without any specialist software. If you are curious how these fastq files were generated, you can see the [Appendix](#appendix) for details.
+Two example `.fastq` files have been provided for you in the folder `/home/participant/Course_Materials/Day1/`. As we discussed, they can be viewed without any specialist software. If you are curious how these fastq files were generated, you can see the [Appendix](#appendix) for details.
 
-We can launch the ***CRUK Docker*** from the Desktop and print the first few lines using the standard unix command `head`
+We can launch the ***CRUK Docker*** from the Desktop and navigate to the directory containing the files
 
 ```{}
 cd /home/participant/Course_Materials/Day1/
 ```
 
+Then print the first few lines using the standard unix command `head`
 
 ```{}
 head -n 12 sample.fq1
@@ -57,6 +59,8 @@ We will now use the `ShortRead` Bioconductor package to understand these files a
 
 
 ## Getting started
+
+Load RStudio....
 
 ### Working directory
 
@@ -127,7 +131,7 @@ t <- try(myreads[1:5,1:3],silent=TRUE)
 cat(t)
 ```
 
-If we want to chop-up the strings in this manner, we can use the `subseq` function. 
+If we want to chop-up the strings in this manner, we can use the `subseq` function. The is a specialised function that is much-more efficient that the general `substr` function in base R.
 
 ******
 ******
@@ -151,18 +155,6 @@ firstBases
 ******
 ******
 ******
-
-
-As we mentioned, `Biostrings` contains many useful functions for dealing with DNA sequences. Many man-hours have been spent trying to re-implement functions that are already provided in this package; often with less-efficient results! You can consult the help page for `Biostrings` (which can be found via the Packages tab in the bottom-right panel of RStudio) for a full list. 
-
-
-The *"base"* distribution of R offers many string manipulation functions. One is `substr` that will perform the trimming of characters in the same manner. However, `substr` is a lot slower as it has not been optimised for large datasets of biological sequences. 
-
-Moral: always check if there is a function in `Biostrings` that you can use rather than a base function.
-```{r}
-system.time(subseq(myreads, 1,5))
-system.time(substr(myreads, 1,5))
-```
 
 
 Another useful function is `letterFrequency`, which seeks to tabulate the number of letters in each sequence in the form of a matrix. 
@@ -229,7 +221,7 @@ text(abc[3,1:68],label="G",col="blue")
 text(abc[4,1:68],label="T",col="green")
 ```
 
-Also in the fastq file is the *quality* associated with each base call. This is especially important when it comes to calling SNVs, as we need to be sure of the bases we observe. The `quality` function is used to access these data.
+Also in the `.fastq` file is the *quality* associated with each base call. This is especially important when it comes to calling SNVs, as we need to be sure of the bases we observe. The `quality` function is used to access these data.
 
 ```{r}
 quality(fq)
@@ -275,3 +267,32 @@ plot(qualmeans)
 
 
 Hopefully this section was useful in familiarising yourself with the contents of a `fastq` file and give ideas about how R and Bioconductor can interface with sequencing data. However, in practice we would not normally look into fastq files in such depth in R. 
+
+
+
+# <a name="appendix"></a> Appendix 
+
+For your reference, here is how the example files were created
+
+First, we download an example bam file from the 1000 genomes project
+
+```{}
+wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/other_exome_alignments/NA06984/exome_alignment/NA06984.mapped.illumina.mosaik.CEU.exome.20111114.bam
+```
+
+Then the file is *downsampled* to give a much reduced set of reads. The original file can be removed
+```{}
+java -jar $PICARD DownsampleSam I=NA06984.mapped.illumina.mosaik.CEU.exome.20111114.bam O=random.bam P=0.1 VALIDATION_STRINGENCY=SILENT
+
+rm NA06984.mapped.illumina.mosaik.CEU.exome.20111114.bam
+```
+
+For convenience, we filter the file to keep only reads that are properly paired. Then picard is used again to extract the fastq data from the file. As the original alignments were a mix of 68 and 76 bases, we trim all the reads to 68 bases to processing easier.
+
+```{}
+samtools view -f 0x02 -b random.bam > paired.bam 
+
+java -jar $PICARD SamToFastq I=paired.bam F=sample.fq1 VALIDATION_STRINGENCY=SILENT F2=sample.fq2 R1_MAX_BASES=68 R2_MAX_BASES=68
+```
+
+

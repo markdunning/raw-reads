@@ -40,7 +40,7 @@ output: html_document
 - Experimental Design; despite this fancy new technolgy, if we don't design the experiments properly we won't get meaningful conclusions
 - Quality assessment; Yes, NGS experiments can still go wrong!
 - Normalisation; NGS data come with their own set of biases and error that need to be accounted for
-- Stats; testing for RNA-seq is built-upon the knowledge from microarrays
+- Reproducibility: this is a good thing
 - Plenty of tools and workflows were established.
 - ***Don't forget about arrays; the data are all out there somewhere waiting to be discovered and explored***
 
@@ -48,7 +48,7 @@ output: html_document
 
 ## Illumina sequencing overview*
 
-This video gives and overview of the  *'sequencing-by-synthesis'* approach used by Illumina. Other companies will have different techniques, but Illumina is probably the most-popular sequencing technology out there. For most of what we will discuss, it won't really matter how your samples were sequenced. 
+This video gives an overview of the  *'sequencing-by-synthesis'* approach used by Illumina. Other companies will have different techniques, but Illumina is probably the most-popular sequencing technology out there. For most of what we will discuss, it won't really matter how your samples were sequenced. 
 
 <iframe width="420" height="315" src="https://www.youtube.com/embed/HMyCqWhwB8E" frameborder="0" allowfullscreen></iframe>
 
@@ -71,15 +71,15 @@ A *library* is prepared by breaking the DNA of interest into shorter, *single-st
 
 The construction of a sequencing reads involves adding a single, terminated, DNA base (each given a distinct flourescent label) one at a time, simulataneously across the whole flow-cell, and taking an image. 
 
-So, we try adding an "A" with a red label
+So, we try adding an "A" with a red label and take an image
 
 ![](images/cycle1A.png)
 
-and then a "T" with a green
+and then a "T" with a green, and take another image
 
 ![](images/cycle1T.png)
 
-Analysis of the image can determine which base was succesfully incorporated to each fragment. 
+Analysis of the images can determine which base was succesfully incorporated to each fragment. 
 
 ![](images/cycle1-image.png)
 
@@ -122,19 +122,7 @@ Multiplexing is a way of increasing our sample size.
 
 ![](images/c6vllanxx_c001_l1_t001_bot_s1_a.jpg)
 
-## Image processing
 
-- "*Firecrest*"
-
-![](http://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Regulus_ignicapilla_Arundel.jpg/300px-Regulus_ignicapilla_Arundel.jpg)
-
-
-- *"Uses the raw TIF files to locate clusters on the image, and outputs the cluster intensity, X,Y positions, and an estimate of the noise for each cluster. The output from image analysis provides the input for base calling."*
-
-    + http://openwetware.org/wiki/BioMicroCenter:IlluminaDataPipeline
-- **You will never have to do this**
-    + In fact, the TIFF images are deleted by the instrument
-    
 ## Base-calling
 
 - "*Bustard*"
@@ -144,7 +132,7 @@ Multiplexing is a way of increasing our sample size.
 - *"Uses cluster intensities and noise estimate to output the sequence of bases read from each cluster, along with a confidence level for each base."*
     + http://openwetware.org/wiki/BioMicroCenter:IlluminaDataPipeline
 - **You will never have to do this**
-
+    + In fact, the TIFF images are deleted by the instrument on-the-fly
 
 ## <a name=rawreads></a> Raw reads
 
@@ -165,7 +153,8 @@ Multiplexing is a way of increasing our sample size.
 
 ![](images/fastq-header.png)
 
-We don't need any special software to view these, but bear in mind there can be ~ 250 Million reads (sequences) per Hi-Seq lane. Opening in Word would not be advisable!
+We don't need any special software to view these, but bear in mind there can be ~ 250 Million reads (sequences) per Hi-Seq lane.
+
 
 ### Fastq sequence names
 
@@ -187,7 +176,7 @@ However, this depends on instrument setup and processing pipelines. Sometimes th
 
 ### Fastq quality scores
 
-As we saw earlier the process of deciding which base is present at cycle of each fragment comes with some probability (`p`) that we make a mistake. The quality score expresses our confidence in a particular base-call. 
+As we saw earlier the process of deciding which base is present at each cycle of each fragment comes with some probability (`p`) that we make a mistake. The quality score expresses our confidence in a particular base-call; higher quality score, higher confidence
 
 - One such score for each base of sequencing. i.e. 100 scores for 100 bases of sequencing
 - These are of importance if we want to call SNVs etc.
@@ -236,17 +225,17 @@ library(ShortRead)
 
 pq <- PhredQuality("N?>:<9>>>:=;>>?<>:@?>;==@@@>?=AAA<>=A@?6>4B=<>>.@>?<@;?#############")
 code <- as.integer(charToRaw(as.character(pq)))
-qs <- as(pq, "IntegerList")
+qs <- code-33
 probs <- 10^(unlist(qs)/-10)
 
-df <- data.frame(Character = unlist(strsplit(as.character(pq),"")), Code = code, "Minus Offset (33) " = code -33,Probability = round(probs,3))
+df <- data.frame(Character = unlist(strsplit(as.character(pq),"")), Code = code, "Minus Offset (33) " = code -33,Probability = round(probs,5))
 df[1:10,]
 cat("...")
 cat("...")
 df[58:68,]
 ```
 
-For the extremely-curious we can do this in `R`
+For the extremely-keen we can do this in `R`:-
 
 ```{r}
 pq <- "N?>:<9>>>:=;>>?<>:@?>;==@@@>?=AAA<>=A@?6>4B=<>>.@>?<@;?#############"
@@ -254,7 +243,7 @@ code <- as.integer(charToRaw(as.character(pq)))
 qs <- code -33
 qs
 probs <- 10^(unlist(qs)/-10)
-round(probs,3)
+round(probs,5)
 ```
 
 Now it's time to get our hands on some `.fastq` data and start to explore it.
