@@ -43,7 +43,7 @@ output: html_document
 - Reproducibility: this is a good thing
 - Plenty of tools and workflows were established.
 - ***Don't forget about arrays; the data are all out there somewhere waiting to be discovered and explored***
-
+    + e.g. [repositive.io](https://repositive.io/) platform for browse multiple repositories for data for a particular condition
 
 
 ## Illumina sequencing overview*
@@ -94,11 +94,13 @@ Or sometimes we get a bit over-excited and add too many bases
 
 ![](images/over-run.png)
 
-Therefore the identification of bases comes with some degree of uncertainty which we must capture. 
+Therefore the identification of bases comes with some degree of uncertainty which we must capture. This uncertainty can be incorporated into our analysis, as we will see later.
 
 ## Paired-end
 
-Most of the sequencing we come across in this course is likely to the *paired-end*, which means that we are sequencing both "ends" of the fragment. This will allow us to achieve better alignment to tricky regions of the genome and detect some kinds of variation that would not be possible with single-end reads alone. It also gives us greater confidence in the alignments and detecting artefacts caused by PCR amplification
+Most of the sequencing we come across in this course is likely to the *paired-end*, which means that we are sequencing both "ends" of the fragment. This will allow us to achieve better alignment to tricky regions of the genome and detect some kinds of variation that would not be possible with single-end reads alone. It also gives us greater confidence in the alignments and detecting artefacts caused by PCR amplification.
+
+The fragments are design to be a particular distance apart and relative orientation; a fact that is exploited in some variant detection methods
 
 ![](images/paired-end.png)
 
@@ -152,18 +154,35 @@ Multiplexing is a way of increasing our sample size.
 
 ![](images/fastq-header.png)
 
-We don't need any special software to view these, but bear in mind there can be ~ 250 Million reads (sequences) per Hi-Seq lane.
+We don't need any special software to view these, but bear in mind there can be ~ 250 Million reads (sequences) per Hi-Seq lane. So using Word or Notepad is probably not a great idea.
 
 
-Two example `.fastq` files have been provided for you in the folder `/home/participant/Course_Materials/Day1/`. As we discussed, they can be viewed without any specialist software. If you are curious how these fastq files were generated, you can see the [Appendix](#appendix) for details.
+An example `.fastq` file has been provided for you in the folder `/home/participant/Course_Materials/Day1/`. If you are curious how this fastq file was generated, you can see the [Appendix](#appendix) for details.
 
-We can launch the ***CRUK Docker*** from the Desktop and navigate to the directory containing the files
+We can launch the ***CRUK Docker*** from the Desktop and navigate to the directory containing the files using the `cd` command
+
+- You don't need to type the full path. Start typing and use the Tab key to auto-complete
 
 ```{}
 cd /home/participant/Course_Materials/Day1/
 ```
 
+If we wanted to check the directory we are currently looking at, we can use the `pwd` command.
+
+```{}
+pwd 
+```
+
+
+The `ls` command will *list* all the files in this directory
+
+```{}
+ls
+```
+
 Then print the first few lines using the standard unix command `head`
+
+- We set the argument `-n 12` to print the first 12 lines of the file `sample.fq1`
 
 ```{}
 head -n 12 sample.fq1
@@ -192,6 +211,12 @@ wc -l sample.fq1
 cat(system("wc -l sample.fq1",intern=TRUE),sep="\n")
 ```
 
+What would you type to print the first 12 lines of `sample.fq2`?
+
+```{}
+
+
+```
 
 
 ### Fastq sequence names
@@ -284,6 +309,13 @@ probs <- 10^(unlist(qs)/-10)
 round(probs,5)
 ```
 
+It is possible to interrogate the `fastq` files in R. However, in practice we tend to use other tools such as fastqc described in the next section.
+
+```{r eval=FALSE}
+library(ShortRead)
+fq <- readFastq("sample.fq1")
+fq
+```
 
 
 
@@ -291,7 +323,7 @@ round(probs,5)
 # <a name="fastqc"></a> Fastqc Primer
 *(Acknowledgement to Ines De Santiago for her session at the [previous summer school](http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day1/NGS_QC_inesdesantiago.pdf))*
 
-[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) from Babraham Bioinformatics Core has emerged as the standard tool for performing quality assessment on sequencing reads 
+[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) from the Babraham Institute Bioinformatics Core has emerged as the standard tool for performing quality assessment on sequencing reads 
 
 The manual for `fastqc` is available [online](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) and is very comprehensive; especially the parts which describe particular [sections](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/) of the report. The authors also run a ["QCfail"](https://sequencing.qcfail.com/) blog which discusses some sequencing QC errors they have encountered and how they were diagnosed.
 
@@ -366,3 +398,125 @@ samtools view -f 0x02 -b random.bam > paired.bam
 
 java -jar $PICARD SamToFastq I=paired.bam F=sample.fq1 VALIDATION_STRINGENCY=SILENT F2=sample.fq2 R1_MAX_BASES=68 R2_MAX_BASES=68
 ```
+
+# (OPTIONAL / Advanced)
+
+*If you are interested this section covers how to trim our data*
+
+Based on these plots we may want to *trim* our data; *fastqc will not do this for us*.  
+
+Popular choices are [fastx_toolit](http://hannonlab.cshl.edu/fastx_toolkit/), [trimmomatic](http://www.usadellab.org/cms/index.php?page=trimmomatic) and  [cutadapt](http://cutadapt.readthedocs.io/en/stable/index.html); all of which should be installed on your computers. As implied by the name, `cutadapt` is useful for removing adaptor sequences. 
+
+`fastx_toolkit` allows us to remove reads that do not have a high enough proportion of high-quality reads.
+
+You can run these commands after having run the ***CRUK Docker*** shortcut
+
+```{}
+## Check we're in the correct directory
+cd /home/participant/Course_Materials/Day1/
+fastq_quality_filter -v Q 33 -q 20 -p 75 -i sample.fq1 -o sample_filtered.fq
+```
+
+the options were used:-
+
+```{}
+-i: input file
+-o: output file
+-v: report the number of sequences
+-Q:  33, determines the input quality ASCII offset
+-q: 20, the quality value required
+-p 75: the percentage of bases required to have that quality value
+```
+
+the output should be something like...
+
+```{}
+Quality cut-off: 20
+Minimum percentage: 75
+Input: 6290535 reads.
+Output: 5399767 reads.
+discarded 890768 (14%) low-quality reads.
+```
+
+It can also do straightforward trimming to a particular read length
+
+```{}
+fastx_trimmer -v -f 1 -l 60 -i sample.fq1 -o sample.fastx.trimmed.fq1
+```
+
+the options specified were:-
+
+```{}
+-f: first base to keep
+-l: last base to keep
+-i: input file
+-o: output file
+-v: report number of sequences
+```
+
+
+Trimmomatic is interesting as it allows for differently-sized reads. 
+
+To use `trimmomatic` we can run the following in a Terminal. Here `$TRIMMOMATIC` is used to refer to the particular location that the tool has been installed to.
+
+```{}
+
+java -jar $TRIMMOMATIC SE -phred33 sample.fq1 sample.trimmed.fq1 TRAILING:3 MINLEN:30
+```
+
+```{}
+SE: run single-end mode
+-phred33: use the offset of 33 to interpret quality scores
+TRAILING:3 cut bases from the end of the read if below 3
+```
+
+We can interrogate the files we have just created using the `ShortRead` package.
+
+```{r echo=FALSE,message=FALSE,warning=FALSE,eval=FALSE}
+## These commands need to be run in RStudio
+
+library(ShortRead)
+fq <- readFastq("sample.fq1")
+fq
+trimmed.fq <- readFastq("sample.trimmed.fq1")
+trimmed.fq
+
+```
+
+How many were removed?
+
+```{r ,eval=FALSE}
+length(trimmed.fq)/length(fq)
+```
+
+```{r,eval=FALSE}
+summary(width(sread(trimmed.fq)))
+hist(width(sread(trimmed.fq)))
+```
+
+
+We can verify why some of the reads were removed
+
+```{r,eval=FALSE}
+old.ids <- as.character(id(fq))
+ids.left <- as.character(id(trimmed.fq))
+
+missing.ids <- setdiff(old.ids,ids.left)
+myquals <- quality(fq)
+myquals[old.ids %in% missing.ids]
+```
+
+******
+
+### Exercise
+
+- Re-run `fastqc` and observe what effect this has on the results
+
+```{eval=FALSE}
+fastqc sample.trimmed.fq1
+fastqc sample.fastx.trimmed.fq1
+fastqc sample.filtered.fq1
+```
+
+
+******
