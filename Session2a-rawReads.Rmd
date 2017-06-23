@@ -512,7 +512,7 @@ myquals[old.ids %in% missing.ids]
 
 - Re-run `fastqc` and observe what effect this has on the results
 
-```{eval=FALSE}
+```{}
 fastqc sample.trimmed.fq1
 fastqc sample.fastx.trimmed.fq1
 fastqc sample.filtered.fq1
