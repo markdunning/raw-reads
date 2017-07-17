@@ -157,7 +157,7 @@ Multiplexing is a way of increasing our sample size.
 We don't need any special software to view these, but bear in mind there can be ~ 250 Million reads (sequences) per Hi-Seq lane. So using Word or Notepad is probably not a great idea.
 
 
-An example `.fastq` file has been provided for you in the folder `/home/participant/Course_Materials/data/test`. If you are curious how this fastq file was generated, you can see the [Appendix](#appendix) for details.
+An example `.fastq` file has been provided for you in the folder `/data/test`. If you are curious how this fastq file was generated, you can see the [Appendix](#appendix) for details.
 
 
 We can launch the ***CRUK Docker*** from the Desktop and navigate to the directory containing the files using the `cd` command
@@ -165,7 +165,7 @@ We can launch the ***CRUK Docker*** from the Desktop and navigate to the directo
 - You don't need to type the full path. Start typing and use the Tab key to auto-complete
 
 ```{}
-cd /home/participant/Course_Materials/data/test
+cd /data/test
 ```
 
 If we wanted to check the directory we are currently looking at, we can use the `pwd` command.
@@ -181,10 +181,10 @@ The `ls` command will *list* all the files in this directory
 ls
 ```
 
-***Important*** The example files described were provided for the CRUK Bioinformatics Summer School; Analysis of Cancer Genomes - July 2017. If you do not see any `.fastq` files listed in the directory, you will need to download them. A script `download.sh` is provided for this purpose:-
+***Important*** The example files described were provided for the CRUK Bioinformatics Summer School; Analysis of Cancer Genomes - July 2017. If you do not see any `.fastq` files listed in the directory, you will need to download them. A script `download-test-data.sh` is provided for this purpose:-
 
 ```{}
-sh download.sh
+sh /home/participant/Course_Materials/download-test-data.sh
 ```
 
 
@@ -321,7 +321,7 @@ It is possible to interrogate the `fastq` files in R. However, in practice we te
 
 ```{r eval=FALSE}
 library(ShortRead)
-fq <- readFastq("/home/participant/Course_Materials/data/test/sample.fq1")
+fq <- readFastq("/data/test/sample.fq1")
 fq
 ```
 
@@ -372,8 +372,8 @@ With this section of the report, we are checking to see if there is a population
 `fastqc` can be run from the ***CRUK Docker*** as follows;
 
 ```{}
-cd /home/participant/Course_Materials/data/test/
-fastqc sample.fq1
+cd /home/participant/Course_Materials/Day1
+fastqc /data/test/sample.fq1
 ```
 
 As a result, you should get two files in your working directory; `sample.fq1_fastqc.zip` and `sample.fq1_fastqc.html`. The `.zip` file contains all the metrics that `fastqc` computes, should you wish to perform extra manipulation and visualisation beyond what `fastqc` offers. 
@@ -421,8 +421,8 @@ You can run these commands after having run the ***CRUK Docker*** shortcut
 
 ```{}
 ## Check we're in the correct directory
-cd /home/participant/Course_Materials/data/test/
-fastq_quality_filter -v Q 33 -q 20 -p 75 -i sample.fq1 -o sample_filtered.fq
+cd /home/participant/Course_Materials/Day1
+fastq_quality_filter -v Q 33 -q 20 -p 75 -i /data/test/sample.fq1 -o sample_filtered.fq
 ```
 
 the options were used:-
@@ -449,7 +449,7 @@ discarded 890768 (14%) low-quality reads.
 It can also do straightforward trimming to a particular read length
 
 ```{}
-fastx_trimmer -v -f 1 -l 60 -i sample.fq1 -o sample.fastx.trimmed.fq1
+fastx_trimmer -v -f 1 -l 60 -i /data/test/sample.fq1 -o sample.fastx.trimmed.fq1
 ```
 
 the options specified were:-
@@ -469,7 +469,7 @@ To use `trimmomatic` we can run the following in a Terminal. Here `$TRIMMOMATIC`
 
 ```{}
 
-java -jar $TRIMMOMATIC SE -phred33 sample.fq1 sample.trimmed.fq1 TRAILING:3 MINLEN:30
+java -jar $TRIMMOMATIC SE -phred33 /data/test/sample.fq1 sample.trimmed.fq1 TRAILING:3 MINLEN:30
 ```
 
 ```{}
