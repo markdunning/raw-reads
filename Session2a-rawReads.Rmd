@@ -372,15 +372,32 @@ With this section of the report, we are checking to see if there is a population
 `fastqc` can be run from the ***CRUK Docker*** as follows;
 
 ```{}
-cd /home/participant/Course_Materials/Day1
 fastqc /data/test/sample.fq1
 ```
 
-As a result, you should get two files in your working directory; `sample.fq1_fastqc.zip` and `sample.fq1_fastqc.html`. The `.zip` file contains all the metrics that `fastqc` computes, should you wish to perform extra manipulation and visualisation beyond what `fastqc` offers. 
-
-The `html` file can be opened in a web browser. If you follow the link on the Desktop to `Course_Materials` you should be able to navigate to the folder `data/test/` and see the files we have created.
+As a result, you should get two files; `sample.fq1_fastqc.zip` and `sample.fq1_fastqc.html`. The `.zip` file contains all the metrics that `fastqc` computes, should you wish to perform extra manipulation and visualisation beyond what `fastqc` offers. 
 
 
+
+******
+******
+******
+
+### Exercise
+
+- What directory are the output files from `fastqc` stored?
+- Look at the help for `fastqc`
+- What argument do you need to change to make the output go to `/home/participant/Course_Materials/Day1/`
+
+```{}
+fastqc -h
+```
+
+
+
+******
+******
+******
 
 # <a name="appendix"></a> Appendix 
 
