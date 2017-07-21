@@ -200,15 +200,6 @@ head -n 12 sample.fq1
 cat(system("head -n12 sample.fq1",intern=TRUE),sep="\n")
 ```
 
-```{}
-head -n 12 sample.fq2
-```
-
-
-```{r, echo=FALSE,comment=NA}
-cat(system("head -n12 sample.fq2",intern=TRUE),sep="\n")
-```
-
 The unix command `wc` can count the number of lines in a file with the option `-l`
 
 ```{}
