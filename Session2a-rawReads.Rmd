@@ -174,7 +174,7 @@ Assuming the files are present, we can print the first few lines using the stand
 head -n 12 sample.fq1
 ```
 
-```{r, echo=FALSE,comment=NA}
+```{r, echo=FALSE,comment=NA,eval=FALSE}
 cat(system("head -n12 sample.fq1",intern=TRUE),sep="\n")
 ```
 
@@ -184,7 +184,7 @@ The unix command `wc` can count the number of lines in a file with the option `-
 wc -l sample.fq1
 ```
 
-```{r echo=FALSE,comment=NA}
+```{r echo=FALSE,comment=NA,eval=FALSE}
 cat(system("wc -l sample.fq1",intern=TRUE),sep="\n")
 ```
 
