@@ -64,7 +64,7 @@ A *library* is prepared by breaking the DNA of interest into shorter, *single-st
 
 ![](images/flow-cell-bare.png)
 
-*Bridge amplification* forms clusters of identical fragments on the flow-cell surface. This is required as we're going to be taking images of the flow-cell and need even copies of each fragment so that we get a decent signal. However, as we'll see later, this can introduce errors.
+*Bridge amplification* forms clusters of identical fragments on the flow-cell surface. This is required as we're going to be taking images of the flow-cell and need many copies of each fragment so that we get a decent signal. However, as we'll see later, this can introduce errors.
 
 ![](images/flow-cell.png)
 
@@ -179,12 +179,6 @@ The `ls` command will *list* all the files in this directory
 
 ```{}
 ls
-```
-
-***Important*** The example files described were provided for the CRUK Bioinformatics Summer School; Analysis of Cancer Genomes - July 2017. If you do not see any `.fastq` files listed in the directory, you will need to download them. A script `download-test-data.sh` is provided for this purpose:-
-
-```{}
-sh /home/participant/Course_Materials/download-test-data.sh
 ```
 
 
