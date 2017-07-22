@@ -96,22 +96,6 @@ Or sometimes we get a bit over-excited and add too many bases
 
 Therefore the identification of bases comes with some degree of uncertainty which we must capture. This uncertainty can be incorporated into our analysis, as we will see later.
 
-## Paired-end
-
-Most of the sequencing we come across in this course is likely to the *paired-end*, which means that we are sequencing both "ends" of the fragment. This will allow us to achieve better alignment to tricky regions of the genome and detect some kinds of variation that would not be possible with single-end reads alone. It also gives us greater confidence in the alignments and detecting artefacts caused by PCR amplification.
-
-The fragments are design to be a particular distance apart and relative orientation; a fact that is exploited in some variant detection methods
-
-![](images/paired-end.png)
-
-## Multiplexing
-
-We can also add multiple samples into the same sequencing library. The fragments from each sequence can be identified by a barcode (typically a few bases in length) unique to that sample. When the sequence reads are generated, they have the barcode at the beginning. The process of *demultiplexing* is used to identify to barcodes present for each read and split into separate files for alignment. 
-
-Multiplexing is a way of increasing our sample size. 
-
-![](images/pooling.png)
-
 
 ## Image processing 
 
