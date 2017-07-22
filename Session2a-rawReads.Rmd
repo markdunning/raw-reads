@@ -355,8 +355,10 @@ As a result, you should get two files; `sample.fq1_fastqc.zip` and `sample.fq1_f
 ### Exercise
 
 - What directory are the output files from `fastqc` stored?
+    + how can we check the contents of a particular directory?
+    + navigate to this directory with the file explorer and open the HTML file by double-clicking
 - Look at the help for `fastqc`
-- What argument do you need to change to make the output go to `/home/participant/Course_Materials/Day1/`
+    + What argument do you need to change to make the output go to `/home/participant/Course_Materials/Day1/`?
 
 ```{}
 fastqc -h
